@@ -40,14 +40,15 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
         }
         return list;
     }
-
-    public Company findUserById(int id) {
+    
+    @Override
+    public Company findCompanyById(int id) {
         Company company = new Company();
         try {
             this.connect();
-            String query = "";
+            String query = "SELECT * FROM `company` WHERE `id_company` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
-
+            pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
                 int t = 1;
@@ -150,9 +151,6 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
         return company;
     }
 
-    @Override
-    public Company findCompanyById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+}
 
 }
