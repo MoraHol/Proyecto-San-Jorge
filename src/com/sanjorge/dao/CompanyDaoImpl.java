@@ -143,7 +143,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
             pstm.setString(1, email);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                company = this.findUserById(rs.getInt("id_company"));
+                company = this.findCompanyById(rs.getInt("id_company"));
             }
         } catch (Exception e) {
             System.err.println("UserDao:" + e.getMessage());
@@ -153,4 +153,4 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
 
 }
 
-}
+
