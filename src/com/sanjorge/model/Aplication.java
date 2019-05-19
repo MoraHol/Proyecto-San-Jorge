@@ -4,24 +4,24 @@ package com.sanjorge.model;
  * @author David Viuche
  */
 public class Aplication {
-    private Offer offer;
-    private User user;
+    private int id_offer;
+    private int id_user;
 
-    public Offer getOffer() {
-        return offer;
+    public int getId_offer() {
+        return id_offer;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public void setId_offer(int id_offer) {
+        this.id_offer = id_offer;
     }
 
-    public User getUser() {
-        return user;
+    public int getId_user() {
+        return id_user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
-    
-    
+
+   
 }

@@ -2,7 +2,6 @@
 package com.sanjorge.idao;
 
 import com.sanjorge.model.Aplication;
-import com.sanjorge.model.User;
 import java.util.ArrayList;
 
 /**
@@ -10,9 +9,9 @@ import java.util.ArrayList;
  */
 public interface IAplicationDao {
     public ArrayList<Aplication> findAll();
-    public Aplication findAplicationByUser(User user);
+    public Aplication findAplicationByUser(int idUser);
     public int save(Aplication aplication);
-    public int delete(User user);
+    public int delete(int idUser);
     public int update(Aplication aplication);
 
 }
