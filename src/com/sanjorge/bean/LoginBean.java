@@ -30,21 +30,20 @@ public class LoginBean implements Serializable {
     }
 
     public boolean isAuthenticated() throws Exception {
+        System.out.println(email+" " + password);
         user = userService.authenticateUser(email, password);
         return user != null;
     }
 
-    public String doLogin() throws Exception {
+    public void doLogin() throws Exception {
         try {
             if (isAuthenticated()) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
-                return "/index.xhtml?faces-redirect=true";
             }
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage("messagesApp",
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
         }
-        return "";
     }
 
     public void logout() {
@@ -65,6 +64,22 @@ public class LoginBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

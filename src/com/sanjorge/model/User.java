@@ -1,5 +1,6 @@
 package com.sanjorge.model;
 
+import java.util.Base64;
 import java.util.Date;
 
 /*
@@ -20,13 +21,13 @@ public class User {
     private String secondSurName;
     private String email;
     private String password;
-    private String identificationNumber;
+    private Integer identificationNumber;
     private String gender;
     private Date birthdate;
     private String civilStatus;
     private String address;
     private String phoneNumber;
-    private Image photo;
+    private byte[] photo;
     private String profile;
 
     public int getId() {
@@ -125,13 +126,18 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Image getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
+
+   public String photoToString(){
+       
+       return Base64.getEncoder().encodeToString(photo);
+   }
 
     public String getProfile() {
         return profile;
@@ -141,12 +147,14 @@ public class User {
         this.profile = profile;
     }
 
-    public String getIdentificationNumber() {
+    public Integer getIdentificationNumber() {
         return identificationNumber;
     }
 
-    public void setIdentificationNumber(String identificationNumber) {
+    public void setIdentificationNumber(Integer identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
+
+    
     
 }
