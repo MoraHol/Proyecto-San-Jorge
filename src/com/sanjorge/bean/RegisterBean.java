@@ -14,15 +14,17 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author Alexis Holguin
+ * @author Alexis Holguin github:MoraHol
  */
 @ManagedBean(name = "registerBean")
 @SessionScoped
 public class RegisterBean implements Serializable {
+
     private UserService userService;
     private String firstName;
     private String secondName;
@@ -35,16 +37,17 @@ public class RegisterBean implements Serializable {
     private String civilStatus;
     private String address;
     private String phoneNumber;
-    private UploadedFile photo;
     private String profile;
-    private String identificationNumber;
+    private Integer identificationNumber;
+    private boolean experience;
+    private byte[] contents;
 
     @PostConstruct
     public void init() {
         userService = new UserService();
     }
 
-    public String insert() {
+    public void insert() {
         try {
             User user = new User();
             user.setFirstName(firstName);
@@ -60,19 +63,35 @@ public class RegisterBean implements Serializable {
             user.setPassword(userService.convertSHA256(password));
             user.setAddress(address);
             user.setIdentificationNumber(identificationNumber);
+            user.setPhoto(contents);
             // guardar foto en base de datos
             if (userService.insert(user) > 0) {
                 FacesContext.getCurrentInstance().addMessage("messagesRegister",
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se ha creado la Cuenta"));
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se ha creado la Cuenta"));
             } else {
                 FacesContext.getCurrentInstance().addMessage("messagesRegister",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se produjo un error al registrarse"));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se produjo un error al registrarse"));
             }
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println("error: " + e.getMessage());
         }
-        return "";
+    }
+
+    public void resetInput() {
+        FacesContext.getCurrentInstance().addMessage("messagesRegister",
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "El formulario ha sido limpiado"));
+    }
+
+    public void upload(FileUploadEvent event) {
+        UploadedFile uploadedFile = event.getFile();
+        contents = uploadedFile.getContents();
+        if (contents.length > 0) {
+            FacesContext.getCurrentInstance().addMessage("messagesRegister", new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se ha subido la imagen satisfactoriamente"));
+        }else{
+            FacesContext.getCurrentInstance().addMessage("messagesRegister", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se ha subido la imagen satisfactoriamente"));
+        }
+        // ... Save it, now!
     }
 
     public String getPhoneNumber() {
@@ -80,16 +99,15 @@ public class RegisterBean implements Serializable {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber.trim();
+        this.phoneNumber = phoneNumber;
     }
-
 
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email.trim();
+        this.email = email;
     }
 
     public String getPassword() {
@@ -105,7 +123,7 @@ public class RegisterBean implements Serializable {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName.trim();
+        this.firstName = firstName;
     }
 
     public String getSecondName() {
@@ -113,10 +131,8 @@ public class RegisterBean implements Serializable {
     }
 
     public void setSecondName(String secondName) {
-        this.secondName = secondName.trim();
+        this.secondName = secondName;
     }
-
-  
 
     public String getAddress() {
         return address;
@@ -126,5 +142,76 @@ public class RegisterBean implements Serializable {
         this.address = address.trim();
     }
 
-    
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public String getFirstSurName() {
+        return firstSurName;
+    }
+
+    public void setFirstSurName(String firstSurName) {
+        this.firstSurName = firstSurName;
+    }
+
+    public String getSecondSurName() {
+        return secondSurName;
+    }
+
+    public void setSecondSurName(String secondSurName) {
+        this.secondSurName = secondSurName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getCivilStatus() {
+        return civilStatus;
+    }
+
+    public void setCivilStatus(String civilStatus) {
+        this.civilStatus = civilStatus;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public Integer getIdentificationNumber() {
+        return identificationNumber;
+    }
+
+    public void setIdentificationNumber(Integer identificationNumber) {
+        this.identificationNumber = identificationNumber;
+    }
+
+    public boolean isExperience() {
+        return experience;
+    }
+
+    public void setExperience(boolean experience) {
+        this.experience = experience;
+    }
+
 }
