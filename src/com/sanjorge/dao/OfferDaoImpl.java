@@ -6,6 +6,7 @@
 package com.sanjorge.dao;
 
 import com.sanjorge.idao.IOfferDao;
+import com.sanjorge.model.Category;
 import com.sanjorge.model.Company;
 import com.sanjorge.model.Offer;
 import java.sql.PreparedStatement;
@@ -17,14 +18,7 @@ import java.util.ArrayList;
  * @author Adrian Hoyos
  */
 public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
-    //Create, Read, Update, Delete
 
-    /**
-     * Function to create a new offer
-     *
-     * @param offer Recives offer object
-     * @return if the offer inserts correctly
-     */
     public int createOffer(Offer offer) {
         int status = 0;
         try {
@@ -45,39 +39,30 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
         return status;
     }
     
-    /**
-     * 
-     * @param id
-     * @return 
-     */
-    public Offer findById(int id){
+    public Offer findOfferById(int id){
         Offer offer = new Offer();
         try {
-            String query = "SELECT * \n" +
-                           "FROM job_offers JO \n" +
-                           "INNER JOIN category C\n" +
-                           "ON JO.category_category_id = C.category_id\n" +
-                           "INNER JOIN companies CO\n" +
-                           "ON JO.companies_id_company = CO.id_company\n" +
+            String query = "SELECT id_job_offer, companies_id_company, category_category_id, created_at, working_day, C.name\n" +
+                           "FROM job_offers JO\n" +
                            "WHERE id_job_offer = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
-             pstm.setInt(1, id);
+            pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
             
+            CompanyDaoImpl companyOfTheOffer = new CompanyDaoImpl();//To use the function findCompanyById
             if(rs.next()){
                 int t = 1;
                 offer.setId(rs.getInt(t++));
+                offer.setCompany(companyOfTheOffer.findCompanyById(rs.getInt(t++)));
+                offer.setCategory(findCategoryById(rs.getInt(t++)));
+                offer.setCreatedAt(rs.getDate(t++));
+                offer.setWorking_day(rs.getString(t++));
             }
         } catch (Exception e) {
         }
         return offer;
     }
     
-    /**
-     * Function to bring offers in the database
-     * @param company 
-     * @return the offers of the specified company
-     */
     public ArrayList<Offer> listOffersByCompany(Company company) {
         ArrayList<Offer> offers = new ArrayList<>();
         try {
@@ -86,11 +71,63 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
             pstm.setInt(1, company.getId());
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
-                 offers.add(this.findById(rs.getInt("id_job_offer")));
+                 offers.add(this.findOfferById(rs.getInt("id_job_offer")));
             }
         } catch (Exception e) {
         }
         return offers;
+    }
+
+    public int deleteOffer(int id){
+        int status = 0;
+        try {
+            this.connect();
+            String query = "DELETE FROM `job_offers` WHERE `job_offers`.`id` = ?";
+            PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
+            pstm.setInt(1, id);
+            status = pstm.executeUpdate();
+            this.disconnect();
+        } catch (Exception e) {
+        }
+        return status;
+    }
+    
+    public int updateOffer(Offer offer){
+        int status = 0;
+        try {
+            this.connect();
+            String query = "UPDATE `job_offers` "
+                    + "SET `category_category_id` = ?, `companies_id_company` = ?, `working_day` = ?"
+                    + "WHERE `job_offers`.`id_job_offer` = ?";
+            PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
+            pstm.setInt(1, offer.getCategory().getId());
+            pstm.setInt(2, offer.getCompany().getId());
+            pstm.setString(3, offer.getWorking_day());
+            pstm.setInt(4, offer.getId());
+            status = pstm.executeUpdate();
+            this.disconnect();
+        } catch (Exception e) {
+            System.err.println("Offer Dao:" + e.getMessage());
+        }
+        return status;
+    }
+
+    private Category findCategoryById(int id) {
+        Category categoryOfTheOffer = new Category();
+        try {
+            this.connect();
+            String query = "SELECT * FROM `category` WHERE `category_id` = ?";
+            PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                int t = 1;
+                categoryOfTheOffer.setId(rs.getInt(t++));
+                categoryOfTheOffer.setName(rs.getString(t++));
+            }
+        } catch (Exception e) {
+        }
+        return categoryOfTheOffer;
     }
 
 }
