@@ -5,10 +5,18 @@
  */
 package com.sanjorge.idao;
 
+import com.sanjorge.model.Company;
+import com.sanjorge.model.Offer;
+import java.util.ArrayList;
+
 /**
  *
- * @author BOG-A404-E-022
+ * @author Adrian Hoyos
  */
 public interface IOfferDao {
-    
+    public int createOffer(Offer offer);
+    public Offer findOfferById(int id);
+    public ArrayList<Offer> listOffersByCompany(Company company);
+    public int deleteOffer(int id);
+    public int updateOffer(Offer offer);
 }
