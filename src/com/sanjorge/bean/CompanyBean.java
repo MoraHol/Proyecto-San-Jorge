@@ -11,14 +11,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Alexis Holguin github:MoraHol
  */
 @ManagedBean(name = "companyBean")
-@SessionScoped
+@ViewScoped
 public class CompanyBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<Company> companies;
@@ -27,6 +27,7 @@ public class CompanyBean implements Serializable {
     @PostConstruct
     public void init(){
         companyService = new CompanyService();
+        companies = companyService.list();
     }
 
     public ArrayList<Company> getCompanies() {

@@ -8,6 +8,7 @@ package com.sanjorge.service;
 import com.sanjorge.dao.CompanyDaoImpl;
 import com.sanjorge.idao.ICompanyDao;
 import com.sanjorge.model.Company;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,5 +28,14 @@ public class CompanyService {
     }
     public int delete(Company company){
         return 0;
+    }
+    public ArrayList<Company> list(){
+        ArrayList<Company> list = new ArrayList<>();
+        try {
+            list = companyDao.findAll();
+        } catch (Exception e) {
+        }
+        return list;
+        
     }
 }
