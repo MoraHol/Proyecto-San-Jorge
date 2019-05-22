@@ -13,9 +13,24 @@
             <div class="card">
                 <h:form id="listUsers">
                     <p:panel header="Empresas">
-                        <p:dataView var="car" value="#{dataGridView.cars}" rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
+                        <p:dataView var="company" value="#{companyBean.companies}" rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                     gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+
+
+                            <p:dataViewListItem>
+                                <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+                                    <!--<p:graphicImage name="" /> -->
+
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputText value="#{company.name}" style="font-weight: bold"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+
+                                </h:panelGrid>
+                            </p:dataViewListItem>
                         </p:dataView>
                     </p:panel>
                 </h:form>

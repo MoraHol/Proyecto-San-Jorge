@@ -28,15 +28,16 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company.setName(rs.getString(t++));
                 company.setEmail(rs.getString(t++));
                 company.setPassword(rs.getString(t++));
-                company.setEmail(rs.getString(t++));
                 company.setDescription(rs.getString(t++));
                 company.setWebpage(rs.getString(t++));
                 company.setPhoneNumber(rs.getString(t++));
                 company.setNit(rs.getString(t++));
                 company.setAddress(rs.getString(t++));
                 company.setIdentificationNumber(rs.getString(t++));
+                list.add(company);
             }
         } catch (Exception e) {
+            System.out.println("CompanyDao: Error" + e.getMessage());
         }
         return list;
     }
@@ -65,6 +66,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company.setIdentificationNumber(rs.getString(t++));
             }
         } catch (Exception e) {
+            System.out.println("CompanyDao: Error" + e.getMessage());
         }
         return company;
     }
@@ -128,7 +130,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {
-            System.err.println("CompanyDao:" + e.getMessage());
+            System.out.println("CompanyDao: Error" + e.getMessage());
         }
         return status;
     }
@@ -146,7 +148,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company = this.findCompanyById(rs.getInt("id_company"));
             }
         } catch (Exception e) {
-            System.err.println("UserDao:" + e.getMessage());
+            System.out.println("CompanyDao: Error" + e.getMessage());
         }
         return company;
     }
