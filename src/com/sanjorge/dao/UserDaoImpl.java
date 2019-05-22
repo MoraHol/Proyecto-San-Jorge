@@ -6,12 +6,12 @@
 package com.sanjorge.dao;
 
 import com.sanjorge.idao.IUserDao;
-import com.sanjorge.model.Image;
 import com.sanjorge.model.User;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  *
@@ -29,24 +29,7 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
 
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                int t = 1;
-                User user = new User();
-                user.setId(rs.getInt(t++));
-                user.setFirstName(rs.getString(t++));
-                user.setSecondName(rs.getString(t++));
-                user.setFirstSurName(rs.getString(t++));
-                user.setSecondSurName(rs.getString(t++));
-                user.setPassword(rs.getString(t++));
-                user.setEmail(rs.getString(t++));
-                user.setIdentificationNumber(rs.getString(t++));
-                user.setGender(rs.getString(t++));
-                user.setBirthdate(rs.getDate(t++));
-                user.setCivilStatus(rs.getString(t++));
-                user.setAddress(rs.getString(t++));
-                user.setPhoneNumber(rs.getString(t++));
-                user.setAddress(rs.getString(t++));
-                user.setPhoto(new Image(rs.getString(t++)));
-                user.setProfile(rs.getString(t++));
+                list.add(this.findUserById(rs.getInt(1)));
             }
         } catch (Exception e) {
         }
@@ -58,9 +41,9 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
         User user = new User();
         try {
             this.connect();
-            String query = "";
+            String query = "SELECT * FROM `users` WHERE `id_user` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
-
+            pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
                 int t = 1;
@@ -71,14 +54,13 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
                 user.setSecondSurName(rs.getString(t++));
                 user.setPassword(rs.getString(t++));
                 user.setEmail(rs.getString(t++));
-                user.setIdentificationNumber(rs.getString(t++));
+                user.setIdentificationNumber(rs.getInt(t++));
                 user.setGender(rs.getString(t++));
                 user.setBirthdate(rs.getDate(t++));
                 user.setCivilStatus(rs.getString(t++));
                 user.setAddress(rs.getString(t++));
                 user.setPhoneNumber(rs.getString(t++));
-                user.setAddress(rs.getString(t++));
-                user.setPhoto(new Image(rs.getString(t++)));
+                user.setPhoto(rs.getBlob(14).getBytes(1, (int) rs.getBlob(14).length()));
                 user.setProfile(rs.getString(t++));
             }
         } catch (Exception e) {
@@ -91,7 +73,7 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
         int status = 0;
         try {
             this.connect();
-            String query = "INSERT INTO `users` (`id_user`, `first_name`, `second_name`, `first_surname`, `second_surname`, `password`, `email`, `indentification_number`, `gender`, `birthdate`, `civil_status`, `address`, `phone_number`, `photo`, `profile`) VALUES (NULL, ?, ?, ', ?, ?, ?, ?, ?', ?, ?, ?, 'alsdajlkdj', '', 'asdasdasd asd asdsf sddf sdfggsdff ddf ')";
+            String query = "INSERT INTO `users` (`first_name`, `second_name`, `first_surname`, `second_surname`, `password`, `email`, `indentification_number`, `gender`, `birthdate`, `civil_status`, `address`, `phone_number`, `photo`, `profile`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setString(1, user.getFirstName());
             pstm.setString(2, user.getSecondName());
@@ -99,18 +81,18 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
             pstm.setString(4, user.getSecondSurName());
             pstm.setString(5, user.getPassword());
             pstm.setString(6, user.getEmail());
-            pstm.setString(7, user.getIdentificationNumber());
+            pstm.setInt(7, user.getIdentificationNumber());
             pstm.setString(8, user.getGender());
-            pstm.setDate(9, (Date) user.getBirthdate());
+            pstm.setDate(9, new java.sql.Date(user.getBirthdate().getTime()));
             pstm.setString(10, user.getCivilStatus());
             pstm.setString(11, user.getAddress());
             pstm.setString(12, user.getPhoneNumber());
-            //pstm.setBlob(13, user.getPhoto());
+            pstm.setBlob(13, new SerialBlob(user.getPhoto()));
             pstm.setString(14, user.getProfile());
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {
-            System.err.println("UserDao:" + e.getMessage());
+            System.err.println("UserDao Eror al insertar: " + e.getMessage());
         }
         return status;
     }
@@ -144,13 +126,13 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
             pstm.setString(4, user.getSecondSurName());
             pstm.setString(5, user.getPassword());
             pstm.setString(6, user.getEmail());
-            pstm.setString(7, user.getIdentificationNumber());
+            pstm.setInt(7, user.getIdentificationNumber());
             pstm.setString(8, user.getGender());
             pstm.setDate(9, (Date) user.getBirthdate());
             pstm.setString(10, user.getCivilStatus());
             pstm.setString(11, user.getAddress());
             pstm.setString(12, user.getPhoneNumber());
-            //pstm.setBlob(13, user.getPhoto());
+            pstm.setBlob(13, new SerialBlob(user.getPhoto()));
             pstm.setString(14, user.getProfile());
             status = pstm.executeUpdate();
             this.disconnect();
@@ -170,7 +152,7 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
             pstm.setString(1, email);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                user = this.findUserById(rs.getInt("id_user"));
+                user = this.findUserById(rs.getInt(1));
             }
         } catch (Exception e) {
             System.err.println("UserDao:" + e.getMessage());

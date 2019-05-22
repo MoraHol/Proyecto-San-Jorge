@@ -3,58 +3,113 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
+
+
 
     <h:head>
-        <f:facet name="first">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-            <link href="css/lib/bootstrap.min.css" rel="stylesheet"/>
-        </f:facet>
-        <title>Login | Usuario</title>
-    </h:head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <h:body styleClass="login-body">
-        <div id="login">
-            <p:growl id="growl" for="messagesApp" showDetail="true"></p:growl>
-            <h3 class="text-center text-white pt-5">Login form</h3>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.css" />
+        <link href="https://www.elempleo.com/resources/companies/Content/dist/css/layoutSimple.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/login.css"/>
+        <title>Iniciar Sesión</title>
+    </h:head>
+    <h:body>
+        <header class="header-simple">
             <div class="container">
-                <div id="login-row" class="row justify-content-center align-items-center">
-                    <div id="login-column" class="col-md-6">
-                        <div id="login-box" class="col-md-12">
-                            <h:form id="login-form" class="form">
-                                <h3 class="text-center text-info">Login</h3>
-                                <div class="form-group">
-                                    <label for="username" class="text-info">Correo:</label><br/>
-                                    <p:inputText placeholder="Correo" id="email" value="#{loginBean.email}" styleClass="form-control" required="true" requiredMessage="ingresa tu correo"/>
-                                    <p:message for="email" display="text" />
+                <div class="row">
+                    <div class="col-xs-1">
+                        <a class="ee-logotype" href="/Proyecto-San-Jorge/index.xhtml" title="San Jorge Jobs">
+                            <img class="img-responsive hidden-xs" src="https://image.flaticon.com/icons/svg/1283/1283280.svg" alt="IMAGES" width="46" height="46"/>
+                            
+                        </a>
+                    </div>
+                    <div class="col-xs-11"><h1 >San Jorge Jobs</h1></div>
+                </div>
+            </div>
+        </header>
+        <br/>
+        <!-- Login Bootstrap -->
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6 ee_login_container">
+                <h1 class="myresume-title">
+                    Iniciar sesión
+                </h1>
+                <label>Inicia sesión con tu usuario y contraseña de elempleo.com</label>
+                <fieldset>
+                    <h:form  class="js-login-form" id="demo-form">                    
+                        <div class="form-group">
+
+                            <label class="control-label " for="text-4008138">Correo electrónico</label>
+
+                            <div class="">
+
+                                <p:inputText  id="username" value="${loginBean.email}" placeholder="ejemplo@sanjorge.com" required="true" requiredMessage="Por favor ingresa Correo" styleClass="form-control input-lg"/>
+                                <span class="field-validation-valid help-block" data-valmsg-for="EmailField" data-valmsg-replace="true" id="helpBlock-4008138"><p:message for="username" display="text" /></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="control-label " for="password-39798983">Contraseña</label>
+
+                            <div class="">
+
+                                <div class="password-wrapper">
+                                    <p:password  id="password" value="${loginBean.password}" placeholder="Contraseña" required="true" requiredMessage="Por favor ingresa la contraseña" styleClass="form-control input-lg input-validation-error"/>
+
+
+                                    <span class="field-validation-valid help-block" data-valmsg-for="PasswordField" data-valmsg-replace="true" id="helpBlock-39798983"><p:message for="password" display="text" styleClass="help-block" /></span>
+
                                 </div>
-                                <div class="form-group">
-                                    <label for="password" class="text-info">Contraseña:</label><br/>
-                                    <p:password id="password" placeholder="Contraseña" feedback="false" value="#{loginBean.password}" required="true" styleClass="form-control" requiredMessage="Ingresa tu contraseña" />
-                                    <p:message for="password" display="text" />
+                            </div>
+
+                            <div class="form-group" style="margin-top: 20px;">
+
+                                <p:commandButton id="submitLogin" action="#{loginBean.doLogin}" styleClass="btn btn-primary btn-block btn-log" value="Inicia Sesion" update="@form" onclick="PF('statusDialog').show();"/>
+
+                            </div>
+                            <div class="row link-container">
+                                <div class="col-sm-6">
+                                    <a class="btn btn-link btn-block jsRecoverPassword btn-lg" href="/co/recuperar-contrasena">
+                                        Olvidé mi contraseña »
+                                    </a>
                                 </div>
-                                <div class="form-group">
-                                    <p:commandButton action="#{loginBean.doLogin}"
-                                                     value="Ingresar"
-                                                     onclick="PF('statusDialog').show();"
-                                                     style="width: 100%;padding: 8px;font-weight: bold" 
-                                                     update="@form" 
-                                                     class="btn btn-primary">
-                                    </p:commandButton>
-                                </div>
-                                <div id="register-link" class="text-right">
-                                    <a href="register.xhtml" class="text-info">Registrate aqui</a>
-                                </div>
-                            </h:form>
+                            </div>
+                        </div>
+                    </h:form>            
+                </fieldset>
+            </div>
+
+
+            <div class="col-lg-6 col-md-6 ee_signin">
+                <div class="ee_not-login_container">
+                    <div class="ee_not-login_inner_container">
+                        <h1 class="login-title">¿Aún no estás registrado?</h1>
+                        <span>Aplica a miles de ofertas de empleo o encuentra los mejores candidatos para tu empresa</span>
+                        <div>
+                            <a class="btn-singin" href="/Proyecto-San-Jorge/register.xhtml" role="button">Registrar hoja de vida</a>
+                            <a class="btn-singin" href="/co/registrar-empresa" role="button">Registrar empresa</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </h:body>
 
+            </div>
+
+        </div>
+
+        <div class="row" Style="background-color:black;  width: 100%; height: 250px;">
+        </div>
+
+
+
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    </h:body>
 </html>

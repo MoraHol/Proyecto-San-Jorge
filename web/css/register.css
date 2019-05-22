@@ -1,0 +1,113 @@
+html {
+    font-size: 16px;
+    font-family: 'Kreon', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+.cont1 {
+    max-width: 450px;
+    height: auto;
+    background-color: #efefef;
+    margin: 7% auto;
+    padding-bottom: 1rem;
+}
+
+.form-top {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0 1rem;
+    border-top: solid .6rem #FF5733;
+    margin-bottom: 1rem;
+}
+
+.form-top h2 {
+    font-weight: bolder;
+    color: #808080;
+    font-size: 20px;
+}
+
+
+.form-reg {
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-form {
+    display: flex!important;
+    justify-content: space-between!important;
+    margin-top: 1rem!important;
+}
+
+.input, .btn-submit, .btn-reset {
+    background-color: #ffffff!important;
+    padding: .6rem!important;
+    margin: .5rem 0!important;
+    border: none!important;
+    border-bottom: solid #cac8c8 .2rem!important;
+    transition: all .6s!important;
+    width: 354px!important;
+}
+
+.select{
+    border: none;
+    border-bottom: solid #cac8c8 .2rem;
+    background-color: #ffffff;
+    padding: .0rem;
+    margin: .5rem 0;
+    overflow: hidden;
+}
+
+
+.select {
+    padding: .0rem;
+    margin: .5rem 0;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: #ffffff;
+    background-image: none;
+    appearance: none;
+}
+
+select:not(:valid){
+    color: grey;
+}
+
+h3 {
+    font-weight: bolder;
+    font-size: 18px;
+    color :#808080
+}
+
+textarea {
+    padding: .0rem;
+    margin: .5rem 0;
+    width: 100%;
+    border: none;
+    border-bottom: solid #cac8c8 .2rem;
+    box-shadow: none;
+    background-color: #ffffff;
+    background-image: none;
+    appearance: none;
+}
+
+i {
+    font-size: 15px;
+    color :#808080
+}
+
+.btn-submit, .btn-reset {
+    width: 35%!important;
+    border-bottom: none!important;
+    background-color:  #FF5733 !important;
+    color: white!important;
+}
+
+.btn-reset {
+    background-color:  #FF5733 !important;
+}

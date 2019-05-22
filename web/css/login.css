@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    padding: 0;
+
+
+    font-family: sans-serif;
+    height: 100vh;
+}
+
+.btn-primary{
+    box-shadow: 0 3px 0 0 #158cba!important;
+}

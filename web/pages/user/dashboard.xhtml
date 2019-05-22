@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="title" >Dashboard</ui:define>
+    <ui:define name="head">
+        <f:event type="preRenderView" listener="${loginBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="content">
+        <div class='container'>
+            <div class="card">
+                <h:form id="listUsers">
+                    <p:panel header="Usuarios">
+                        <p:dataTable id="listUsers-table" var="user" value="${userBean.users}" rows="10" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord} de {totalRecords}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="No tiene clientes" >
+                            <p:column headerText="Identificación" sortBy="#{user.identificationNumber}" filterBy="#{user.identificationNumber}">
+                                <h:outputText value="#{user.identificationNumber}" />
+                            </p:column>
+                            <p:column headerText="Primer Nombre" sortBy="#{user.firstName}" filterBy="#{user.firstName}">
+                                <h:outputText value="#{user.firstName}" />
+                            </p:column>
+                            <p:column headerText="Segundo Nombre" sortBy="#{user.secondName}" filterBy="#{user.secondName}">
+                                <h:outputText value="#{user.secondName}" />
+                            </p:column>
+                            <p:column headerText="Primer Apellido" sortBy="#{user.firstSurName}" filterBy="#{user.firstSurName}">
+                                <h:outputText value="#{user.firstSurName}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

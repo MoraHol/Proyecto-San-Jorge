@@ -150,7 +150,4 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
         }
         return company;
     }
-
 }
-
-

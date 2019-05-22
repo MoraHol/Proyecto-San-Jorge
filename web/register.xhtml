@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/css?family=Kreon" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.css" />
+        <link rel="stylesheet" href="css/register.css"/>
+        <title>Registro</title>
+
+    </h:head>
+
+    <h:body>
+        <div class="cont1">
+            <div class="form-top">
+                <h2>Registro De Usuario</h2>
+            </div>
+            <h:form class="form-reg"  enctype="multipart/form-data" id="register">
+                <p:growl showDetail="true" id="growl" for="messagesRegister"/>
+                <h3>Número De Identificación</h3>
+                <div class="form-group">
+                    <p:inputNumber id="register-personal-id" inputStyleClass="input" requiredMessage="Ingresa tu numero de identificación" decimalPlaces="0" placeholder="Ingrese número de identificación." required="true" style="width: 354px;" value="${registerBean.identificationNumber}" />
+                    <p:message for="register-personal-id" display="text" styleClass="help-block"/>
+                </div>
+                <h3>Primer Nombre</h3>
+                <div class="form-group">
+                    <p:inputText class="input" id="register-first-name" type="text" placeholder="Ingrese primer nombre" required="true" requiredMessage="Ingresa tu Primer Nombre" value="${registerBean.firstName}"/>
+                    <p:message for="register-first-name" display="text" styleClass="help-block"/>
+                </div>
+                <h3>Segundo Nombre (Opcional)</h3>
+                <p:inputText class="input" type="text" placeholder="Ingrese segundo nombre." value="${registerBean.secondName}"/>
+
+                <h3>Primer Apellido</h3>
+                <div class="form-group">
+                    <p:inputText class="input" id="register-first-surname" type="text" placeholder="Ingrese primer apellido." required="true" requiredMessage="Ingresa tu primer apellido" value="${registerBean.firstSurName}"/>
+                    <p:message for="register-first-surname" display="text" styleClass="help-block"/>
+                </div>
+                <h3>Segundo Apellido</h3>
+                <p:inputText styleClass="input" type="text" id="register-second-surname" placeholder="Ingrese segundo apellido." required="true" requiredMessage="Ingresa tu segundo apellido" value="${registerBean.secondSurName}"/>
+                <p:message for="register-second-surname" display="text" styleClass="help-block"/>
+
+                <h3>Correo Electrónico</h3>
+                <div class="form-group">
+                    <p:inputText class="input" id="register-email" type="email" placeholder="Ingrese correo electrónico." required="true" requiredMessage="Ingrese su correo electronico" value="${registerBean.email}"/>
+                    <p:message for="register-email" display="text" styleClass="help-block"/>
+                </div>
+                <h3>Contraseña</h3>
+                <div class="form-group">
+                    <p:password class="input" id="register-password" placeholder="Ingrese contraseña." required="true" requiredMessage="Ingresa tu contraseña" value="${registerBean.password}"/>
+                    <p:message for="register-password" display="text" styleClass="help-block"/>
+                </div>
+                <h3>Género</h3>              
+                <div class="form-group" >
+                    <p:selectOneMenu id="register-gender" required="true" requiredMessage="Por favor Escoge tu genero" value="#{registerBean.gender}"  styleClass="select" autoWidth="false" style="width: 354px;">
+                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="Seleccionar Género..." />
+                        <f:selectItem itemValue="man" itemLabel="Masculino"/>
+                        <f:selectItem  itemValue="woman" itemLabel="Femenino"/>
+                    </p:selectOneMenu>
+                    <p:message for="register-gender" display="text" styleClass="help-block"/>
+                </div>
+
+
+                <h3>Fecha De Nacimiento</h3>
+                <div class="form-group" >
+                    <p:calendar value="#{registerBean.birthdate}" id="register-birthdate" required="true" requiredMessage="Ingresa tu fecha de nacimiento" inputStyle="width: 354px;" navigator="true" ></p:calendar>
+                    <p:message for="register-birthdate" display="text" styleClass="help-block"/>
+                </div>
+
+
+                <h3>Estado Civil</h3>
+                <div class="form-group" >
+                    <p:selectOneMenu id="register-civil-status" required="true" requiredMessage="Por favor Escoge tu estado civil" value="#{registerBean.civilStatus}" styleClass="select" autoWidth="false" style="width: 354px;">
+                        <f:selectItem itemValue="" itemLabel="Seleccionar Estado Civil..." noSelectionOption="true" />
+                        <f:selectItem itemLabel="Soltero/a" itemValue="single"/>
+                        <f:selectItem itemValue="married" itemLabel="Casado/a"/>
+                        <f:selectItem itemValue="free union" itemLabel="Unión libre"/>
+                        <f:selectItem itemValue="divorced" itemLabel="Divorciado/a"/>
+                        <f:selectItem itemLabel="Viudo/a" itemValue="widower"/>
+                    </p:selectOneMenu>
+                    <p:message for="register-civil-status" display="text" styleClass="help-block"/>
+                </div>
+
+                <h3>Dirección</h3>
+                <div class="form-group" >
+                    <p:inputText styleClass="input" id="register-address" placeholder="Ingrese dirección de vivienda." required="true" requiredMessage="Ingresa tu dirección" value="${registerBean.address}"/>
+                    <p:message display="text" for="register-address" styleClass="help-block"/>
+                </div>
+
+                <h3>Teléfono</h3>
+                <div class="form-group">
+                    <p:inputText styleClass="input" id="register-cellphone" placeholder="Ingrese teléfono móvil o teléfono fijo." required="true" requiredMessage="Ingresa tu telefono" value="#{registerBean.phoneNumber}"/>
+                    <p:message display="text" for="register-cellphone" styleClass="help-block"/>
+                </div>
+
+                <h3>Tipo De Estudio</h3>
+                <div class="form-group" >
+                    <p:selectOneMenu id="register-educational-level" required="true" requiredMessage="Por favor Escoge tu estado civil" value="#{registerBean.civilStatus}" styleClass="select" autoWidth="false" style="width: 354px;">
+                        <f:selectItem itemValue="" itemLabel="Seleccionar Tipo De Estudio..." noSelectionOption="true" />
+                        <f:selectItem itemLabel="Primaria" itemValue="1"/>
+                        <f:selectItem itemValue="2" itemLabel="Educacion Secundaria"/>
+                        <f:selectItem itemValue="3" itemLabel="Educacion Media"/>
+                        <f:selectItem itemValue="4" itemLabel="Técnico"/>
+                        <f:selectItem itemValue="5" itemLabel="Tecnólogo"/>
+                        <f:selectItem itemLabel="Universitario" itemValue="6"/>
+                        <f:selectItem itemLabel="Especialización" itemValue="7"/>
+                        <f:selectItem itemLabel="Maestrio" itemValue="8"/>
+                        <f:selectItem itemLabel="Doctorado" itemValue="9"/>
+                    </p:selectOneMenu>
+                    <p:message for="register-educational-level" display="text" styleClass="help-block"/>
+                </div>
+
+                <h3>Experiencia Laboral</h3>
+                <div class="form-group" >
+                    <p:selectOneRadio id="register-experience" value="${registerBean.experience}"  required="true" requiredMessage="Por favor eliga una opción"> 
+                        <f:selectItem itemValue="true" itemLabel="Si" />
+                        <f:selectItem itemValue="false" itemLabel="No" />
+                    </p:selectOneRadio>
+                    <p:message for="register-experience" display="text" styleClass="help-block"/>
+                </div>
+
+
+                <h3>Último Trabajo</h3>
+                <div class="form-group" >
+                    <p:inputText styleClass="input" placeholder="Ingrese último trabajo"/>
+                    <i>De no tener, ingresar "No aplica"</i>
+                </div>
+                <h3>Cargo Laboral</h3>
+                <div class="form-group" >
+                    <p:inputText styleClass="input" placeholder="Ingrese último cargo laboral"/>
+                    <i>De no tener, ingresar "No aplica"</i>
+                </div>
+
+                <h3>Descripción</h3>
+                <p:inputTextarea rows="4" cols="40"  placeholder="Ingrese una descripción breve de su perfil profesional." value="${registerBean.profile}"/>
+
+
+                <h3>Subir Foto De Perfil</h3>
+                <p:fileUpload id="register-photo" update="growl" fileUploadListener="#{registerBean.upload}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" cancelLabel="Cancelar" uploadLabel="Subir" dragDropSupport="true" sizeLimit="100000" fileLimit="1" fileLimitMessage="EL tipo de archivo no es compatible" label="Escoger" invalidSizeMessage="El tamaño es muy grande" previewWidth="20" style="width: 354px;" required="true" requiredMessage="Por favor sube tu foto"/>
+                <p:message for="register-photo" display="text" styleClass="help-block"/>
+
+                <br></br>
+                <div class="btn-form">
+                    <p:commandButton styleClass="btn-submit" value="Registrar" action="${registerBean.insert()}" update="@form" onclick="PF('statusDialog').show();"/>
+                    <p:commandButton styleClass="btn-reset" value="Limpiar Campos">
+                        <p:ajax update="register" resetValues="true" listener="${registerBean.resetInput()}" />
+                    </p:commandButton>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+
+</html>
