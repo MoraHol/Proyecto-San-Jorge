@@ -29,25 +29,7 @@ public class UserDaoImpl extends ConnectionSQL implements IUserDao {
 
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                int t = 1;
-                User user = new User();
-                user.setId(rs.getInt(t++));
-                user.setFirstName(rs.getString(t++));
-                user.setSecondName(rs.getString(t++));
-                user.setFirstSurName(rs.getString(t++));
-                user.setSecondSurName(rs.getString(t++));
-                user.setPassword(rs.getString(t++));
-                user.setEmail(rs.getString(t++));
-                user.setIdentificationNumber(rs.getInt(t++));
-                user.setGender(rs.getString(t++));
-                user.setBirthdate(rs.getDate(t++));
-                user.setCivilStatus(rs.getString(t++));
-                user.setAddress(rs.getString(t++));
-                user.setPhoneNumber(rs.getString(t++));
-                user.setAddress(rs.getString(t++));
-                user.setPhoto(rs.getBlob(t).getBytes(1, (int) rs.getBlob(t++).length()));
-                user.setProfile(rs.getString(t++));
-                list.add(user);
+                list.add(this.findUserById(rs.getInt(1)));
             }
         } catch (Exception e) {
         }
