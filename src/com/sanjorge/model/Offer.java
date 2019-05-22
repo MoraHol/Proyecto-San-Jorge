@@ -6,7 +6,6 @@
 package com.sanjorge.model;
 
 import java.util.Date;
-
 /**
  *
  * @author Adrian Hoyos
