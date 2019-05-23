@@ -5,6 +5,7 @@ import com.sanjorge.model.Company;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  *
@@ -33,7 +34,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company.setPhoneNumber(rs.getString(t++));
                 company.setNit(rs.getString(t++));
                 company.setAddress(rs.getString(t++));
-                company.setIdentificationNumber(rs.getString(t++));
+                company.setLogo(rs.getBlob(t).getBytes(1, (int) rs.getBlob(t).length()));
                 list.add(company);
             }
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company.setPhoneNumber(rs.getString(t++));
                 company.setNit(rs.getString(t++));
                 company.setAddress(rs.getString(t++));
-                company.setIdentificationNumber(rs.getString(t++));
+                company.setLogo(rs.getBlob(t).getBytes(1, (int) rs.getBlob(t).length()));
             }
         } catch (Exception e) {
             System.out.println("CompanyDao: Error" + e.getMessage());
@@ -86,7 +87,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
             pstm.setString(6, company.getPhoneNumber());
             pstm.setString(7, company.getNit());
             pstm.setString(8, company.getAddress());
-            pstm.setString(9, company.getIdentificationNumber());
+            pstm.setBlob(9, new SerialBlob(company.getLogo()));
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {
@@ -126,7 +127,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
             pstm.setString(6, company.getPhoneNumber());
             pstm.setString(7, company.getNit());
             pstm.setString(8, company.getAddress());
-            pstm.setString(9, company.getIdentificationNumber());
+            pstm.setBlob(9, new SerialBlob(company.getLogo()));
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {

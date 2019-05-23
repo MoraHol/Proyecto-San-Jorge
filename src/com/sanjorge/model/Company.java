@@ -15,7 +15,16 @@ public class Company {
     private String phoneNumber;
     private String nit;
     private String address;
-    private String identificationNumber;
+    private byte[] logo;
+
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+    
 
     public int getId() {
         return id;
@@ -88,15 +97,5 @@ public class Company {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public void setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
-    }
-    
-    
     
 }
