@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public interface ICategoryDao {
     public ArrayList<Category> findAll();
-    public Category findCategoryById(int id);
+    public Category findById(int id);
     public int save(Category category);
     public int delete(int id);
     public int update(Category category);

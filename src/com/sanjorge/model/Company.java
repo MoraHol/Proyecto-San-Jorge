@@ -16,7 +16,17 @@ public class Company {
     private String nit;
     private String address;
     private byte[] logo;
+    private Category category;
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    
     public byte[] getLogo() {
         return logo;
     }

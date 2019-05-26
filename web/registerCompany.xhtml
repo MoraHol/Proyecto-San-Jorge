@@ -11,8 +11,8 @@
     <h:body>
         <h:form>
             <p:growl for="messagesRegister" id="growl" showDetail="true"></p:growl>
-            
-            
+
+
             <h:outputLabel for="register-nit" value="Nit: *" />
             <p:inputText id="register-nit" value="${registerCompanyBean.nit}" required="true"></p:inputText>
             <br/>
@@ -35,25 +35,26 @@
             <h:outputLabel for="register-webpage" value="Pagina web: " />
             <p:inputText id="register-webpage" value="${registerCompanyBean.webpage}" required="true"></p:inputText>
             <br/>
-            
+
             <h:outputLabel for="register-phone-number" value="Numero telefonico: *" />
             <p:inputText id="register-phone-number" value="${registerCompanyBean.phoneNumber}" required="true"></p:inputText>
             <br/>
-            
+
             <h:outputLabel for="register-address" value="Dirección: *" />
             <p:inputText id="register-address" value="${registerCompanyBean.address}" required="true"></p:inputText>
             <br/>
-            
-            <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" required="true"  >
-                <f:selectItem itemLabel="Selecione una categoria" itemValue=""
-                              noSelectionOption="true" />
-                <f:selectItems value="${registerCompanyBean.categories}" var="company" itemLabel="${company.name}" itemValue="${company.id}"/>
-            </p:selectOneMenu>
-
+            <div class="form-group">
+                <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" required="true" id="register-category" >
+                    <f:selectItem itemLabel="Selecione una categoria" itemValue=""
+                                  noSelectionOption="true" />
+                    <f:selectItems value="${registerCompanyBean.categories}" var="company" itemLabel="${company.name}" itemValue="${company.id}"/>
+                </p:selectOneMenu>
+                <p:message for="register-category" display="text" styleClass="help-block"/>
+            </div>
             <p:fileUpload id="register-photo" update="growl" fileUploadListener="#{registerCompanyBean.upload}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" cancelLabel="Cancelar" uploadLabel="Subir" dragDropSupport="true" sizeLimit="100000" fileLimit="1" fileLimitMessage="EL tipo de archivo no es compatible" label="Escoger" invalidSizeMessage="El tamaño es muy grande" previewWidth="20" style="width: 354px;" required="true" requiredMessage="Por favor sube tu foto"/>
             <p:message for="register-photo" display="text" styleClass="help-block"/>
 
-            <p:commandButton value="registrar"></p:commandButton>
+            <p:commandButton value="registrar" action="${registerCompanyBean.insert()}" update="@form"></p:commandButton>
         </h:form>
 
     </h:body>

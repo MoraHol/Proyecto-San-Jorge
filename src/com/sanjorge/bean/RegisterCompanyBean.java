@@ -27,7 +27,7 @@ import org.primefaces.model.UploadedFile;
 public class RegisterCompanyBean {
     private CategoryService categoryService;
     private CompanyService companyService;
-    private Category selectedCategory;
+    private int selectedCategory;
     private ArrayList<Category> categories;
     
     // fields 
@@ -69,7 +69,8 @@ public class RegisterCompanyBean {
             company.setAddress(address);
             company.setLogo(contents);
             company.setWebpage(webpage);
-            company.setNit(nit);         
+            company.setNit(nit);
+            company.setCategory(categoryService.getCategoryById(selectedCategory));
             // guardar foto en base de datos
             if (companyService.insert(company) > 0) {
                 FacesContext.getCurrentInstance().addMessage("messagesRegister",
@@ -92,13 +93,23 @@ public class RegisterCompanyBean {
         this.categoryService = categoryService;
     }
 
-    public Category getSelectedCategory() {
+    public CompanyService getCompanyService() {
+        return companyService;
+    }
+
+    public void setCompanyService(CompanyService companyService) {
+        this.companyService = companyService;
+    }
+
+    public int getSelectedCategory() {
         return selectedCategory;
     }
 
-    public void setSelectedCategory(Category selectedCategory) {
+    public void setSelectedCategory(int selectedCategory) {
         this.selectedCategory = selectedCategory;
     }
+
+    
 
     public ArrayList<Category> getCategories() {
         return categories;

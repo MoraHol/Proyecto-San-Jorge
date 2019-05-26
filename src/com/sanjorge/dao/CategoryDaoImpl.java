@@ -26,7 +26,7 @@ public class CategoryDaoImpl extends ConnectionSQL implements ICategoryDao {
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                categories.add(this.findCategoryById(rs.getInt(1)));
+                categories.add(this.findById(rs.getInt(1)));
             }
         } catch (Exception e) {
             System.out.println("CategoryDao:" + e.getMessage());
@@ -35,7 +35,7 @@ public class CategoryDaoImpl extends ConnectionSQL implements ICategoryDao {
     }
 
     @Override
-    public Category findCategoryById(int id) {
+    public Category findById(int id) {
         Category category = new Category();
         try {
             this.connect();

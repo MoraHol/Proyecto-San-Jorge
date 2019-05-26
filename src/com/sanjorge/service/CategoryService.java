@@ -31,4 +31,12 @@ public class CategoryService {
         return categories;
     }
 
+    public Category getCategoryById(int id) {
+        Category category = new Category();
+        try {
+            category = categoryDao.findById(id);
+        } catch (Exception e) {
+        }
+        return category;
+    }
 }
