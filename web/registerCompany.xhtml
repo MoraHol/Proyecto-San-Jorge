@@ -6,56 +6,145 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>San Jorge Jobs | Registro Empresas</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.css" />
+
     </h:head>
     <h:body>
-        <h:form>
-            <p:growl for="messagesRegister" id="growl" showDetail="true"></p:growl>
+        <header class="header-simple">
+            <div class="container d-flex justify-content-center" >
+                <div class="row">
+                    <div class="col-xs-1">
+                        <a class="ee-logotype" href="/Proyecto-San-Jorge/index.xhtml" title="San Jorge Jobs">
+                            <img class="img-responsive hidden-xs" src="https://image.flaticon.com/icons/svg/1283/1283280.svg" alt="IMAGES" width="46" height="46"/>
 
-
-            <h:outputLabel for="register-nit" value="Nit: *" />
-            <p:inputText id="register-nit" value="${registerCompanyBean.nit}" required="true"></p:inputText>
-            <br/>
-            <h:outputLabel for="register-name" value="Razon social: *" />
-            <p:inputText id="register-name" value="${registerCompanyBean.name}" required="true"></p:inputText>           
-            <br/>
-            <h:outputLabel for="register-email" value="Correo Electronico: *" />
-            <p:inputText id="register-email" value="${registerCompanyBean.email}" required="true"></p:inputText>
-            <br/>
-
-            <div class="form-group">
-                <h:outputLabel for="register-password" value="Contraseña: " />
-                <p:password  id="register-password" placeholder="Ingrese contraseña." required="true" requiredMessage="Ingresa tu contraseña" value="${registerCompanyBean.password}"/>
-                <p:message for="register-password" display="text" styleClass="help-block"/>
+                        </a>
+                    </div>
+                    <div class="col-xs-11"><h1 >San Jorge Jobs</h1></div>
+                </div>
             </div>
+        </header>
+        <br/>
+        <br/>
+        <br/>
+        <!-- Ingreso Datos Bootstrap -->
 
-            <h:outputLabel for="register-description" value="Descripcion: * " />
-            <p:inputTextarea rows="4" cols="40" id="register-description" placeholder="Ingrese una descripción breve de su empresa." value="${registerCompanyBean.description}" required="true"/>
-            <br/>
-            <h:outputLabel for="register-webpage" value="Pagina web: " />
-            <p:inputText id="register-webpage" value="${registerCompanyBean.webpage}" required="true"></p:inputText>
-            <br/>
+        <div  class="container card border-primary" style="min-width: 300px; max-width: 500px;" >
+            <div class="card-header">Header</div>
+            <div class="card-body" style="padding: 40px;">
+                <h:form>
+                    <p:growl for="messagesRegister" id="growl" showDetail="true"></p:growl>
 
-            <h:outputLabel for="register-phone-number" value="Numero telefonico: *" />
-            <p:inputText id="register-phone-number" value="${registerCompanyBean.phoneNumber}" required="true"></p:inputText>
-            <br/>
 
-            <h:outputLabel for="register-address" value="Dirección: *" />
-            <p:inputText id="register-address" value="${registerCompanyBean.address}" required="true"></p:inputText>
-            <br/>
-            <div class="form-group">
-                <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" required="true" id="register-category" >
-                    <f:selectItem itemLabel="Selecione una categoria" itemValue=""
-                                  noSelectionOption="true" />
-                    <f:selectItems value="${registerCompanyBean.categories}" var="company" itemLabel="${company.name}" itemValue="${company.id}"/>
-                </p:selectOneMenu>
-                <p:message for="register-category" display="text" styleClass="help-block"/>
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-nit" value="Nit: *" />
+                        <div class="col-sm-12">
+                            <p:inputText id="register-nit" styleClass="form-control" value="${registerCompanyBean.nit}" required="true" requiredMessage="Por favor Ingresa el Nit"></p:inputText>
+                            <p:message for="register-nit" display="text" styleClass="help-block"/>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-name" value="Razon social: *" />
+                        <div class="col-sm-12">
+                            <p:inputText id="register-name" styleClass="form-control" value="${registerCompanyBean.name}" required="true"></p:inputText> 
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-email" value="Correo Electronico: *" />
+                        <div class="col-sm-12">
+                            <p:inputText id="register-email" styleClass="form-control" value="${registerCompanyBean.email}" required="true"></p:inputText>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-password" value="Contraseña: " />
+                        <div class="col-sm-12">
+                            <p:password  id="register-password" styleClass="form-control"  placeholder="Ingrese contraseña." required="true" requiredMessage="Ingresa tu contraseña" value="${registerCompanyBean.password}"/>  
+                            <p:message for="register-password" display="text" styleClass="help-block"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-description" value="Descripcion: * " />
+                        <div class="col-sm-12">
+                            <p:inputTextarea rows="4" cols="40" id="register-description" styleClass="form-control" placeholder="Ingrese una descripción breve de su empresa." value="${registerCompanyBean.description}" required="true"/>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-webpage" value="Pagina web: " />
+                        <div class="col-sm-12">
+                            <p:inputText id="register-webpage" styleClass="form-control" value="${registerCompanyBean.webpage}" required="true"></p:inputText>
+                        </div>
+                    </div>
+
+
+                    <br/>
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-phone-number" value="Numero telefonico: *" />
+                        <div class="col-sm-12">
+                            <p:inputText id="register-phone-number" styleClass="form-control" value="${registerCompanyBean.phoneNumber}" required="true"></p:inputText>
+                        </div>
+                    </div>
+
+
+                    <br/>
+
+
+                    <div class="form-group row">
+                        <h:outputLabel for="register-address" value="Dirección: *" />
+                        <div class="col-sm-12">
+                            <p:inputText id="register-address" styleClass="form-control" value="${registerCompanyBean.address}" required="true"></p:inputText>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" autoWidth="false" style="width: 100%;" required="true"  >
+
+                                <f:selectItem itemLabel="Selecione una categoria"  itemValue=""
+                                              noSelectionOption="true" />
+                                <f:selectItems value="${registerCompanyBean.categories}" var="company"  itemLabel="${company.name}" itemValue="${company.id}"/>
+
+                            </p:selectOneMenu>
+                        </div> 
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <p:fileUpload id="register-photo" update="growl"   fileUploadListener="#{registerCompanyBean.upload}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" cancelLabel="Cancelar" uploadLabel="Subir" dragDropSupport="true" sizeLimit="100000" fileLimit="1"  fileLimitMessage="EL tipo de archivo no es compatible" label="Escoger" invalidSizeMessage="El tamaño es muy grande" previewWidth="20" style="width: 100%;" required="true" requiredMessage="Por favor sube tu foto"/>
+                            <p:message for="register-photo" display="text" styleClass="help-block"/>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <p:commandButton styleClass="btn btn-primary btn-block btn-log" value="registrar"></p:commandButton>
+                    </div>
+                </h:form>
             </div>
-            <p:fileUpload id="register-photo" update="growl" fileUploadListener="#{registerCompanyBean.upload}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" cancelLabel="Cancelar" uploadLabel="Subir" dragDropSupport="true" sizeLimit="100000" fileLimit="1" fileLimitMessage="EL tipo de archivo no es compatible" label="Escoger" invalidSizeMessage="El tamaño es muy grande" previewWidth="20" style="width: 354px;" required="true" requiredMessage="Por favor sube tu foto"/>
-            <p:message for="register-photo" display="text" styleClass="help-block"/>
+        </div>
 
-            <p:commandButton value="registrar" action="${registerCompanyBean.insert()}" update="@form"></p:commandButton>
-        </h:form>
+        <br/>
+        <div class="row" Style="background-color:black;  width: 100%; height: 250px;">
+        </div>
 
     </h:body>
 </html>
