@@ -29,7 +29,7 @@
         <!-- Ingreso Datos Bootstrap -->
 
         <div  class="container card border-primary" style="min-width: 300px; max-width: 500px;" >
-            <div class="card-header">Header</div>
+            <div class="card-header center_content">Registro</div>
             <div class="card-body" style="padding: 40px;">
                 <h:form>
                     <p:growl for="messagesRegister" id="growl" showDetail="true"></p:growl>
@@ -49,7 +49,8 @@
                     <div class="form-group row">
                         <h:outputLabel for="register-name" value="Razon social: *" />
                         <div class="col-sm-12">
-                            <p:inputText id="register-name" styleClass="form-control" value="${registerCompanyBean.name}" required="true"></p:inputText> 
+                            <p:inputText id="register-name" styleClass="form-control" value="${registerCompanyBean.name}" required="true" requiredMessage="Por favor ingresa la razon social"></p:inputText> 
+                            <p:message for="register-name" display="text" styleClass="help-block"/>
                         </div>
                     </div>
 
@@ -58,7 +59,8 @@
                     <div class="form-group row">
                         <h:outputLabel for="register-email" value="Correo Electronico: *" />
                         <div class="col-sm-12">
-                            <p:inputText id="register-email" styleClass="form-control" value="${registerCompanyBean.email}" required="true"></p:inputText>
+                            <p:inputText id="register-email" styleClass="form-control" value="${registerCompanyBean.email}" required="true" requiredMessage="Por favor ingresa tu correo electronico"></p:inputText>
+                            <p:message for="register-email" display="text" styleClass="help-block"/>
                         </div>
                     </div>
 
@@ -76,7 +78,8 @@
                     <div class="form-group row">
                         <h:outputLabel for="register-description" value="Descripcion: * " />
                         <div class="col-sm-12">
-                            <p:inputTextarea rows="4" cols="40" id="register-description" styleClass="form-control" placeholder="Ingrese una descripción breve de su empresa." value="${registerCompanyBean.description}" required="true"/>
+                            <p:inputTextarea rows="4" cols="40" id="register-description" styleClass="form-control" placeholder="Ingrese una descripción breve de su empresa." value="${registerCompanyBean.description}" required="true" requiredMessage="Por favor ingresa una descripción"/>
+                            <p:message for="register-description" display="text" styleClass="help-block"/>
                         </div>
                     </div>
 
@@ -86,6 +89,7 @@
                         <h:outputLabel for="register-webpage" value="Pagina web: " />
                         <div class="col-sm-12">
                             <p:inputText id="register-webpage" styleClass="form-control" value="${registerCompanyBean.webpage}" required="true"></p:inputText>
+                            <p:message for="register-webpage" display="text" styleClass="help-block"/>
                         </div>
                     </div>
 
@@ -95,7 +99,8 @@
                     <div class="form-group row">
                         <h:outputLabel for="register-phone-number" value="Numero telefonico: *" />
                         <div class="col-sm-12">
-                            <p:inputText id="register-phone-number" styleClass="form-control" value="${registerCompanyBean.phoneNumber}" required="true"></p:inputText>
+                            <p:inputText id="register-phone-number" styleClass="form-control" value="${registerCompanyBean.phoneNumber}" required="true" requiredMessage="Por favor ingresa tu número de celular"></p:inputText>
+                            <p:message for="register-phone-number" display="text" styleClass="help-block"/>
                         </div>
                     </div>
 
@@ -106,7 +111,8 @@
                     <div class="form-group row">
                         <h:outputLabel for="register-address" value="Dirección: *" />
                         <div class="col-sm-12">
-                            <p:inputText id="register-address" styleClass="form-control" value="${registerCompanyBean.address}" required="true"></p:inputText>
+                            <p:inputText id="register-address" styleClass="form-control" value="${registerCompanyBean.address}" required="true" requiredMessage="Por favor ingresa tu Dirección"></p:inputText>
+                            <p:message for="register-address" display="text" styleClass="help-block"/>
                         </div>
                     </div>
 
@@ -114,13 +120,14 @@
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" autoWidth="false" style="width: 100%;" required="true"  >
+                            <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" autoWidth="false" style="width: 100%;" required="true" id="register-category" >
 
                                 <f:selectItem itemLabel="Selecione una categoria"  itemValue=""
                                               noSelectionOption="true" />
                                 <f:selectItems value="${registerCompanyBean.categories}" var="company"  itemLabel="${company.name}" itemValue="${company.id}"/>
 
                             </p:selectOneMenu>
+                            <p:message for="register-category" display="text" styleClass="help-block"/>
                         </div> 
                     </div>
                     <br/>
@@ -136,7 +143,7 @@
                     <br/>
                     <br/>
                     <div class="form-group">
-                        <p:commandButton styleClass="btn btn-primary btn-block btn-log" value="registrar"></p:commandButton>
+                        <p:commandButton styleClass="btn btn-primary btn-block btn-log" value="registrar" action="${registerCompanyBean.insert()}" update="@form"></p:commandButton>
                     </div>
                 </h:form>
             </div>
