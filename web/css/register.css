@@ -19,7 +19,7 @@ body {
     width: 100%;
     text-align: center;
     padding: 2rem 0 1rem;
-    border-top: solid .6rem #FF5733;
+    border-top: solid .6rem #00acac;
     margin-bottom: 1rem;
 }
 
@@ -104,10 +104,10 @@ i {
 .btn-submit, .btn-reset {
     width: 35%!important;
     border-bottom: none!important;
-    background-color:  #FF5733 !important;
+    background-color:  #009393 !important;
     color: white!important;
 }
 
 .btn-reset {
-    background-color:  #FF5733 !important;
+    background-color:  #009393 !important;
 }

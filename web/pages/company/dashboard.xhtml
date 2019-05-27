@@ -3,10 +3,10 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/user/template.xhtml">
+                template="/WEB-INF/company/template.xhtml">
     <ui:define name="title" >Dashboard</ui:define>
     <ui:define name="head">
-        <f:event type="preRenderView" listener="${loginBean.verifySession()}" />
+        <f:event type="preRenderView" listener="${loginCompanyBean.verifySession()}" />
     </ui:define>
     <ui:define name="content">
         <div class='container'>
@@ -30,7 +30,6 @@
                             <p:column headerText="Primer Apellido" sortBy="#{user.firstSurName}" filterBy="#{user.firstSurName}">
                                 <h:outputText value="#{user.firstSurName}" />
                             </p:column>
-
                         </p:dataTable>
                     </p:panel>
                 </h:form>
@@ -38,3 +37,4 @@
         </div>
     </ui:define>
 </ui:composition>
+

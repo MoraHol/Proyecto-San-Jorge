@@ -25,11 +25,12 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean(name = "registerCompanyBean")
 @ViewScoped
 public class RegisterCompanyBean {
+
     private CategoryService categoryService;
     private CompanyService companyService;
     private int selectedCategory;
     private ArrayList<Category> categories;
-    
+
     // fields 
     private String name;
     private byte[] contents;
@@ -40,6 +41,7 @@ public class RegisterCompanyBean {
     private String phoneNumber;
     private String nit;
     private String address;
+
     /**
      * Creates a new instance of RegisterCompany
      */
@@ -54,10 +56,11 @@ public class RegisterCompanyBean {
         contents = uploadedFile.getContents();
         if (contents.length > 0) {
             FacesContext.getCurrentInstance().addMessage("messagesRegister", new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Se ha subido la imagen satisfactoriamente"));
-        }else{
+        } else {
             FacesContext.getCurrentInstance().addMessage("messagesRegister", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se ha subido la imagen satisfactoriamente"));
         }
     }
+
     public void insert() {
         try {
             Company company = new Company();
@@ -72,19 +75,22 @@ public class RegisterCompanyBean {
             company.setNit(nit);
             company.setCategory(categoryService.getCategoryById(selectedCategory));
             // guardar foto en base de datos
-            if (companyService.insert(company) > 0) {
+            try {
+                if (companyService.insert(company) > 0) {
+                    FacesContext.getCurrentInstance().addMessage("messagesRegister",
+                            new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se ha creado la Cuenta"));
+                }
+            } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage("messagesRegister",
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se ha creado la Cuenta"));
-            } else {
-                FacesContext.getCurrentInstance().addMessage("messagesRegister",
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se produjo un error al registrarse"));
+                            new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", e.getMessage()));
             }
+
         } catch (Exception e) {
             System.out.println(e.getClass());
             System.out.println("error: " + e.getMessage());
         }
     }
-    
+
     public CategoryService getCategoryService() {
         return categoryService;
     }
@@ -108,8 +114,6 @@ public class RegisterCompanyBean {
     public void setSelectedCategory(int selectedCategory) {
         this.selectedCategory = selectedCategory;
     }
-
-    
 
     public ArrayList<Category> getCategories() {
         return categories;

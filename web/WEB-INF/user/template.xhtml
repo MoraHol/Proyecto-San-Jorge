@@ -12,6 +12,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="theme-color" content="#{guestPreferences.themeColors[guestPreferences.theme]}" />
+            <link rel="icon" href="/Proyecto-San-Jorge/resources/img/team.png" type="image/png"/> 
         </f:facet>
         <title><ui:insert name="title">PrimeFaces Poseidon</ui:insert></title>
         <h:outputScript name="js/nanoscroller.js" library="poseidon-layout" />
@@ -31,13 +32,13 @@
                     <i class="fa fa-home"></i> <span>/ </span>
                     <ui:insert name="viewname" />
                     
-                    <ui:include src="./right-sidebar.xhtml" />
+                    <ui:include src="../right-sidebar.xhtml" />
                 </div>
                 <div class="layout-main-content">
                     <ui:insert name="content"/>
                 </div>
                 
-                <ui:include src="./footer.xhtml" />
+                <ui:include src="../footer.xhtml" />
             </div>
         </div>
         

@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+                template="/WEB-INF/user/template.xhtml">
     <ui:define name="title" >Empresas</ui:define>
     <ui:define name="head">
         <f:event type="preRenderView" listener="${loginBean.verifySession()}" />
@@ -15,9 +15,7 @@
                     <p:panel header="Empresas">
                         <p:dataView var="company" value="#{companyBean.companies}" rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                    gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-
-
+                                    gridIcon="fa fa-th-large" listIcon="fa fa-reorder">
 
                             <p:dataViewListItem>
                                 <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">

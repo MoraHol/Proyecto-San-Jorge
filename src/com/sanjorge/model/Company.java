@@ -1,5 +1,7 @@
 package com.sanjorge.model;
 
+import java.util.Base64;
+
 
 /**
  * @author David Viuche
@@ -107,5 +109,7 @@ public class Company {
     public void setAddress(String address) {
         this.address = address;
     }
-    
+    public String photoToString(){
+       return Base64.getEncoder().encodeToString(logo);
+   }
 }

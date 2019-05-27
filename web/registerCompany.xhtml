@@ -7,7 +7,7 @@
     <h:head>
         <title>San Jorge Jobs | Registro Empresas</title>
         <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.css" />
-
+        <link rel="icon" href="/Proyecto-San-Jorge/resources/img/team.png" type="image/png"/> 
     </h:head>
     <h:body>
         <header class="header-simple">
@@ -88,7 +88,7 @@
                     <div class="form-group row">
                         <h:outputLabel for="register-webpage" value="Pagina web: " />
                         <div class="col-sm-12">
-                            <p:inputText id="register-webpage" styleClass="form-control" value="${registerCompanyBean.webpage}" required="true"></p:inputText>
+                            <p:inputText id="register-webpage" styleClass="form-control" value="${registerCompanyBean.webpage}" ></p:inputText>
                             <p:message for="register-webpage" display="text" styleClass="help-block"/>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" autoWidth="false" style="width: 100%;" required="true" id="register-category" >
+                            <p:selectOneMenu value="${registerCompanyBean.selectedCategory}" autoWidth="false" style="width: 100%;" required="true" id="register-category" requiredMessage="Selecciona una categoría" >
 
                                 <f:selectItem itemLabel="Selecione una categoria"  itemValue=""
                                               noSelectionOption="true" />
@@ -135,7 +135,7 @@
 
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <p:fileUpload id="register-photo" update="growl"   fileUploadListener="#{registerCompanyBean.upload}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" cancelLabel="Cancelar" uploadLabel="Subir" dragDropSupport="true" sizeLimit="100000" fileLimit="1"  fileLimitMessage="EL tipo de archivo no es compatible" label="Escoger" invalidSizeMessage="El tamaño es muy grande" previewWidth="20" style="width: 100%;" required="true" requiredMessage="Por favor sube tu foto"/>
+                            <p:fileUpload id="register-photo" update="growl" fileUploadListener="#{registerCompanyBean.upload}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" cancelLabel="Cancelar" uploadLabel="Subir" dragDropSupport="true" sizeLimit="100000" fileLimit="1"  fileLimitMessage="EL tipo de archivo no es compatible" label="Escoger" invalidSizeMessage="El tamaño es muy grande" previewWidth="20" style="width: 100%;" required="true" requiredMessage="Por favor sube tu foto"/>
                             <p:message for="register-photo" display="text" styleClass="help-block"/>
                         </div>
                     </div>
