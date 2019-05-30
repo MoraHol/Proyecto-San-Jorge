@@ -22,6 +22,9 @@ public class CompanyService {
     public CompanyService(){
         companyDao = new CompanyDaoImpl();
     }
+    public Company getById(int id){
+       return companyDao.findCompanyById(id);
+    }
     public int insert(Company company) throws Exception{
         int result = 0;
         try {

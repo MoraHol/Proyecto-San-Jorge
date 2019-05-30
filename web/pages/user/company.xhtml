@@ -22,8 +22,11 @@
                                     <!--<p:graphicImage name="" /> -->
 
                                     <p:outputPanel>
-                                        <h:panelGrid columns="2" cellpadding="5">
+                                        <h:panelGrid columns="12" >
+                                            <h:graphicImage url="data:image/png;base64,${company.photoToString()}" width="36" height="36"></h:graphicImage>
                                             <h:outputText value="#{company.name}" style="font-weight: bold"/>
+                                            <p:link outcome="singleCompany.xhtml"> <f:param   id="idCompany" name="idCompany" value="#{company.id}"/>
+                                                <i class="fa fa-search"></i></p:link>
                                         </h:panelGrid>
                                     </p:outputPanel>
 

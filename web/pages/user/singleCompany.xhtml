@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/user/template.xhtml">
+    <ui:define name="title" >Dashboard</ui:define>
+    <ui:define name="head">
+        <f:viewParam name="idCompany" value="#{singleCompanyBean.idCompany}" />
+        <f:event type="preRenderView" listener="#{singleCompanyBean.preRenderView()}" />
+        <f:event type="preRenderView" listener="${loginBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="content">
+        <div class='container'>
+            <div class="card">
+                <div class="row">
+                    <div class="col"><img src="data:image/png;base64,${singleCompanyBean.company.photoToString()}"/></div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

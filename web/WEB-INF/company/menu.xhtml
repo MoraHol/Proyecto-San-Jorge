@@ -13,14 +13,13 @@
                     <pp:menu widgetVar="me">
                         <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-fw fa-home" outcome="/login"/>
                         <p:submenu id="om_clients" label="Vacantes" icon="fa fa-file-text">
-                            <p:menuitem id="om_job_offers_list" value="listar vacantes" icon="fa fa-fw fa-list" outcome="/pages/user/dashboard"/>                            
+                            <p:menuitem id="om_job_offers_list" value="listar vacantes" icon="fa fa-fw fa-list" outcome="/pages/company/list_offers"/>                            
                             <p:menuitem id="om_job_offers_insert" value="crear vacantes" icon="fa fa-fw fa-plus" outcome="/pages/company/create_offers"/>
                         </p:submenu>
-                        <p:menuitem id="om_insertar" value="Empresas" icon="fa fa-fw fa-home" outcome="/pages/user/company"></p:menuitem>
-                        <p:submenu id="om_customization" label="Menu Modes" icon="fa fa-fw fa-bars">
-                            <p:menuitem id="custom3" value="Static Menu" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('static')}" ajax="false"/>
-                            <p:menuitem id="custom4" value="Overlay Menu" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('overlay')}" ajax="false"/>
-                            <p:menuitem id="custom5" value="Horizontal Menu" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('horizontal')}" ajax="false"/>
+                        <p:submenu id="om_customization" label="Modos de Menu" icon="fa fa-fw fa-bars">
+                            <p:menuitem id="custom3" value="Menu Estatico" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('static')}" ajax="false"/>
+                            <p:menuitem id="custom4" value="Sobrepuesto" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('overlay')}" ajax="false"/>
+                            <p:menuitem id="custom5" value="Menu Horizontal" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('horizontal')}" ajax="false"/>
                         </p:submenu>
                     </pp:menu>
                     <p:menuitem id="cat" value="Categorias" icon="fa fa-fw fa-bars" outcome="/login" />

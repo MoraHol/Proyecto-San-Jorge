@@ -47,9 +47,7 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
     public Offer findOfferById(int id){
         Offer offer = new Offer();
         try {
-            String query = "SELECT id_job_offer, companies_id_company, category_category_id, created_at, working_day, C.name\n" +
-                           "FROM job_offers JO\n" +
-                           "WHERE id_job_offer = ?";
+            String query = "SELECT * FROM job_offers WHERE id_job_offer = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
@@ -62,6 +60,11 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
                 offer.setCategory(findCategoryById(rs.getInt(t++)));
                 offer.setCreatedAt(rs.getDate(t++));
                 offer.setWorking_day(rs.getString(t++));
+                offer.setTitle(rs.getString(t++));
+                offer.setDescription(rs.getString(t++));
+                offer.setRequirements(rs.getString(t++));
+                offer.setSalary(rs.getLong(t++));
+                offer.setNumberVacants(t++);
             }
         } catch (Exception e) {
         }
@@ -71,14 +74,16 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
     public ArrayList<Offer> listOffersByCompany(Company company) {
         ArrayList<Offer> offers = new ArrayList<>();
         try {
-            String query = "SELECT * FROM `job_offers` WHERE `companies_id_company` = ?";
+            this.connect();
+            String query = "SELECT id_job_offer FROM `job_offers` WHERE `companies_id_company` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, company.getId());
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
-                 offers.add(this.findOfferById(rs.getInt("id_job_offer")));
+                 offers.add(this.findOfferById(rs.getInt(1)));
             }
         } catch (Exception e) {
+            System.out.println("OfferDao:" + e.getMessage());
         }
         return offers;
     }
