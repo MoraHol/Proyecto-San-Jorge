@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/company/template.xhtml">
+
+    <ui:define name="head">
+        <f:metadata>
+            <f:viewParam name="id" value="#{offerBean.idOffer}" />
+            <f:event type="preRenderView" listener="#{offerBean.preRenderView()}" />
+        </f:metadata>
+        <f:event type="preRenderView" listener="${loginCompanyBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="title" >#{offerBean.offer.title}</ui:define>
+    <ui:define name="breadcrumb"> /  listar ofertas / oferta / Aplicaciones  </ui:define>
+    <ui:define name="content">
+        <div class="container">
+            <div class="card">
+                <h:form>
+                    <p:panel header="lista de aplicantes">
+                        <p:growl id="growl" showDetail="true" for="messagesApp"></p:growl>
+                         <p:dataTable id="listUsers-table" var="aplication" value="${companyBean.offers}" rows="10" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord} de {totalRecords}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="No tiene Aplicantes a esta oferta" >
+                         </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

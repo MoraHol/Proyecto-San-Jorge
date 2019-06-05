@@ -30,4 +30,36 @@ public class OfferService {
         }
         return offers;
     }
+    public ArrayList<Offer> list(){
+        ArrayList<Offer> offers = new ArrayList<>();
+        try {
+            offers = offerDao.findAll();
+        } catch (Exception e) {
+        }
+        return offers;
+    }
+    public Offer getById(int id){
+        Offer offer = new Offer();
+        try {
+            offer = offerDao.findOfferById(id);
+        } catch (Exception e) {
+        }
+        return offer;
+    }
+    public int update(Offer offer){
+        int status = 0;
+        try {
+            status = offerDao.updateOffer(offer);
+        } catch (Exception e) {
+        }
+        return status;
+    }
+    public int delete(int id){
+        int status = 0;
+        try {
+            status = offerDao.deleteOffer(id);
+        } catch (Exception e) {
+        }
+        return status;
+    }
 }

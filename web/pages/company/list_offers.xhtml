@@ -8,11 +8,12 @@
     <ui:define name="head">
         <f:event type="preRenderView" listener="${loginCompanyBean.verifySession()}" />
     </ui:define>
+    <ui:define name="breadcrumb"> /  Vacantes  /  lista de ofertas</ui:define>
     <ui:define name="content">
         <div class='container'>
             <div class="card">
                 <h:form id="create_offer">
-                    <p:panel header="Creación de oferta">
+                    <p:panel header="Lista de oferta">
                         <p:growl id="growl" showDetail="true" for="messagesApp"></p:growl>
                         <p:dataTable id="listUsers-table" var="offer" value="${companyBean.offers}" rows="10" paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -33,6 +34,9 @@
                             </p:column>
                             <p:column headerText="Descripción" sortBy="#{offer.description}">
                                 <h:outputText value="#{offer.description}" escape="false" />
+                            </p:column>
+                            <p:column headerText="Detalles">
+                                <p:link outcome="offer.xhtml"><f:param name="id" value="#{offer.id}" ></f:param><h:outputText class="fa fa-search"></h:outputText></p:link>
                             </p:column>
                         </p:dataTable>
                     </p:panel>

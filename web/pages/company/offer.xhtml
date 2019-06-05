@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/company/template.xhtml">
+
+    <ui:define name="head">
+        <f:metadata>
+            <f:viewParam name="id" value="#{offerBean.idOffer}" />
+            <f:event type="preRenderView" listener="#{offerBean.preRenderView()}" />
+        </f:metadata>
+        <f:event type="preRenderView" listener="${loginCompanyBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="title" >#{offerBean.offer.title}</ui:define>
+    <ui:define name="breadcrumb"> /  listar ofertas / oferta  </ui:define>
+    <ui:define name="content">
+        <p:growl id="growl" showDetail="true" for="messagesApp"></p:growl>
+        <script>
+            document.title = "#{offerBean.offer.title}";
+        </script>
+        <div class="container">
+            <div class="card">
+                <h3><strong>#{offerBean.offer.title}</strong></h3>
+                <i class="fa fa-dollar"></i> <tr/><h:outputText value="#{offerBean.offer.salary}">
+                    <f:convertNumber type="currency"
+                                     currencySymbol="$"/>
+                </h:outputText> 
+
+                <br/>
+                <i class="fa fa-group"></i><tr/> <h:outputText value="#{offerBean.offer.numberVacants} vacantes"></h:outputText> 
+                <br/>
+                <i class="fa fa-institution"></i><tr/> <h:outputText value="#{offerBean.offer.category.name}"></h:outputText> 
+                <br/>
+                <i class="fa fa-gears"></i><tr/> <h:outputText value="#{offerBean.offer.working_day}"></h:outputText> 
+            </div>
+            <div class="card">
+                <h3><strong>Descripcion general</strong></h3>
+                <h:outputText escape="false"  value="#{offerBean.offer.description}"></h:outputText>
+            </div>
+            <div class="card">
+                <h3><strong>Requisitos</strong></h3>
+                <h:outputText escape="false"  value="#{offerBean.offer.requirements}"></h:outputText>
+            </div>
+            <div class="card">
+                <h:form>
+                    <p:linkButton outcome="offerAplications.xhtml" value="Aplicantes" icon="fa fa-users">
+                        <f:param name="id" value="${offerBean.offer.id}"></f:param>
+                    </p:linkButton>
+                    <p:linkButton outcome="updateOffer.xhtml" value="Modificar" icon="fa fa-edit">
+                        <f:param name="id" value="${offerBean.offer.id}"></f:param>
+                    </p:linkButton>
+                    <p:commandButton action="${offerBean.delete()}" value="Eliminar" update="growl" icon="fa fa-trash"></p:commandButton>                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

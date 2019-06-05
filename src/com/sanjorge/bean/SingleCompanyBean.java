@@ -17,7 +17,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name= "singleCompanyBean")
 @ViewScoped
-public class SingleCompanyBean {
+public final class SingleCompanyBean {
     private Integer idCompany;
     private Company company;
     private CompanyService companyService;
@@ -26,7 +26,6 @@ public class SingleCompanyBean {
      */
     public SingleCompanyBean() {
         companyService = new CompanyService();
-        company =  companyService.getById((getIdCompany()));
     }
     public void preRenderView(){
        company =  companyService.getById(getIdCompany());

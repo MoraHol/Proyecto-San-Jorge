@@ -1,17 +1,27 @@
 package com.sanjorge.dao;
 
 import com.sanjorge.idao.IAplicationDao;
+import com.sanjorge.idao.IOfferDao;
+import com.sanjorge.idao.IUserDao;
 import com.sanjorge.model.Aplication;
+import com.sanjorge.model.Offer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
  *
- * @author David Viuche
+ * @author David Viuche, Alexis Holguin github:MoraHol
  */
 public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
-
+    private IOfferDao offerDao;
+    private IUserDao userDao;
+    
+    public AplicationDaoImpl(){
+        offerDao = new OfferDaoImpl();
+        userDao = new UserDaoImpl();
+    }
+    
     @Override
     public ArrayList<Aplication> findAll() {
         ArrayList<Aplication> list = new ArrayList<>();
@@ -24,9 +34,9 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
             while (rs.next()) {
                 int t = 1;
                 Aplication aplication = new Aplication();
-                aplication.setId_offer(rs.getInt(t++));
-                aplication.setId_user(rs.getInt(t++));
-                
+                aplication.setOffer(offerDao.findOfferById(rs.getInt(t++)));
+                aplication.setUser(userDao.findUserById(rs.getInt(t++)));
+                aplication.setCreated_at(rs.getDate(t++));
             }
         } catch (Exception e) {
         }
@@ -44,9 +54,9 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
                 int t = 1;
-                aplication.setId_offer(rs.getInt(t++));
-                aplication.setId_user(rs.getInt(t++));
-                
+                aplication.setOffer(offerDao.findOfferById(rs.getInt(t++)));
+                aplication.setUser(userDao.findUserById(rs.getInt(t++)));
+                aplication.setCreated_at(rs.getDate(t++));
             }
         } catch (Exception e) {
         }
@@ -60,9 +70,9 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
             this.connect();
             String query = "INSERT INTO `applications` (`users_id_user`, `job_offers_id_job_offer`) VALUES (?, ?)";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
-            pstm.setInt(1, aplication.getId_offer());
-            pstm.setInt(2, aplication.getId_user());
-     
+            pstm.setInt(1, aplication.getOffer().getId());
+            pstm.setInt(2, aplication.getUser().getId());
+
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {
@@ -94,8 +104,8 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
             this.connect();
             String query = "UPDATE `applications` SET `users_id_user` = ?, `job_offers_id_job_offer` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
-            pstm.setInt(1, aplication.getId_offer());
-            pstm.setInt(2, aplication.getId_user());
+            pstm.setInt(1, aplication.getOffer().getId());
+            pstm.setInt(2, aplication.getUser().getId());
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {
@@ -104,5 +114,26 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
         return status;
     }
 
-   
+    @Override
+    public ArrayList<Aplication> getApplicationsByOffer(Offer offer) {
+        ArrayList<Aplication> applications = new ArrayList<>();
+        try {
+            this.connect();
+            String query = "SELECT * FROM `applications` WHERE job_offers_id_job_offer = ?";
+            PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
+            pstm.setInt(1, offer.getId());
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                int t = 1;
+                Aplication application = new Aplication();
+                application.setOffer(offerDao.findOfferById(rs.getInt(t++)));
+                application.setUser(userDao.findUserById(rs.getInt(t++)));
+                application.setCreated_at(rs.getDate(t++));
+                applications.add(application);
+            }
+            this.disconnect();
+        } catch (Exception e) {
+        }
+        return applications;
+    }
 }

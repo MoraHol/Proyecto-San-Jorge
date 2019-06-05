@@ -1,26 +1,37 @@
 package com.sanjorge.model;
 
+import java.util.Date;
+
 /**
  * @author David Viuche
  */
 public class Aplication {
-    private int id_offer;
-    private int id_user;
+    private Offer Offer;
+    private User user;
+    private Date created_at;
 
-    public int getId_offer() {
-        return id_offer;
+    public Offer getOffer() {
+        return Offer;
     }
 
-    public void setId_offer(int id_offer) {
-        this.id_offer = id_offer;
+    public void setOffer(Offer Offer) {
+        this.Offer = Offer;
     }
 
-    public int getId_user() {
-        return id_user;
+    public User getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
    

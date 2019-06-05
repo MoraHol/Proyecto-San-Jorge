@@ -8,8 +8,9 @@
     <ui:define name="head">
         <f:event type="preRenderView" listener="${loginCompanyBean.verifySession()}" />
     </ui:define>
+    <ui:define name="breadcrumb"> /  Dashboard  </ui:define>
     <ui:define name="content">
-        <div class='container'>
+        <div class="container">
             <div class="card">
                 <h:form id="listUsers">
                     <p:panel header="Usuarios">

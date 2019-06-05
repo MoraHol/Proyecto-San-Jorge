@@ -2,6 +2,7 @@
 package com.sanjorge.idao;
 
 import com.sanjorge.model.Aplication;
+import com.sanjorge.model.Offer;
 import java.util.ArrayList;
 
 /**
@@ -13,5 +14,5 @@ public interface IAplicationDao {
     public int save(Aplication aplication);
     public int delete(int idUser);
     public int update(Aplication aplication);
-
+     public ArrayList<Aplication> getApplicationsByOffer(Offer offer);
 }
