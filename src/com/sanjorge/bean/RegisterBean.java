@@ -5,7 +5,9 @@
  */
 package com.sanjorge.bean;
 
+import com.sanjorge.model.Category;
 import com.sanjorge.model.User;
+import com.sanjorge.service.CategoryService;
 import com.sanjorge.service.UserService;
 import java.io.Serializable;
 import java.util.Date;
@@ -91,7 +93,6 @@ public class RegisterBean implements Serializable {
         }else{
             FacesContext.getCurrentInstance().addMessage("messagesRegister", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se ha subido la imagen satisfactoriamente"));
         }
-        // ... Save it, now!
     }
 
     public String getPhoneNumber() {

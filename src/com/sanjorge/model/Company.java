@@ -1,5 +1,7 @@
 package com.sanjorge.model;
 
+import java.util.Base64;
+
 
 /**
  * @author David Viuche
@@ -15,7 +17,26 @@ public class Company {
     private String phoneNumber;
     private String nit;
     private String address;
-    private String identificationNumber;
+    private byte[] logo;
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
+    
 
     public int getId() {
         return id;
@@ -88,15 +109,7 @@ public class Company {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public void setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
-    }
-    
-    
-    
+    public String photoToString(){
+       return Base64.getEncoder().encodeToString(logo);
+   }
 }

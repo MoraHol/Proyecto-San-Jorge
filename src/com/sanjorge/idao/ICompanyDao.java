@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface ICompanyDao {
     public ArrayList<Company> findAll();
     public Company findCompanyById(int id);
-    public int save(Company company);
+    public int save(Company company) throws Exception;
     public int delete(int id);
     public int update(Company company);
     public Company findByEmail(String email);

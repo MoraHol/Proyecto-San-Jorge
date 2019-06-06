@@ -135,7 +135,6 @@ public class User {
     }
 
    public String photoToString(){
-       
        return Base64.getEncoder().encodeToString(photo);
    }
 

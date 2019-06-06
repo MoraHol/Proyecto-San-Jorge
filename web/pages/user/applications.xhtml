@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/user/template.xhtml">
+    <ui:define name="title" >Empresas</ui:define>
+    <ui:define name="head">
+        <f:event type="preRenderView" listener="${loginBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="breadcrumb"> /  Mis Aplicaciones </ui:define>
+    <ui:define name="content">
+        <div class='container'>
+            <div class="card">
+                <h:form id="create_offer">
+                    <p:panel header="Lista de aplicaciones">
+                        <p:growl id="growl" showDetail="true" for="messagesApp"></p:growl>
+                        <p:dataTable id="listUsers-table" var="aplication" value="${ApplicationBean.applicationsByUser}" rows="10" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord} de {totalRecords}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="No tiene Aplicaciones" >
+                            <p:column headerText="Titulo" sortBy="#{aplication.offer.title}" filterBy="#{aplication.offer.title}">
+                                <h:outputText value="#{aplication.offer.title}" />
+                            </p:column>
+                            <p:column headerText="Categoría" sortBy="#{aplication.offer.category.name}" filterBy="#{aplication.offer.category.name}">
+                                <h:outputText value="#{aplication.offer.category.name}" />
+                            </p:column>
+                            <p:column headerText="Nombre de la empresa" sortBy="#{aplication.offer.company.name}" filterBy="#{aplication.offer.company.name}">
+                                <h:outputText value="#{aplication.offer.company.name}" />
+                            </p:column>
+                            <p:column headerText="Aplicación a la oferta" sortBy="#{aplication.created_at.toString()}" filterBy="#{aplication.created_at.toString()}">
+                                <h:outputText value="#{aplication.created_at.toString()}" />
+                            </p:column>
+                            <p:column headerText="Fecha de publicacion" sortBy="#{aplication.offer.createdAt.toString()}" filterBy="#{aplication.offer.createdAt.toString()}">
+                                <h:outputText value="#{aplication.offer.createdAt.toString()}" escape="false" />
+                            </p:column>
+                            <p:column headerText="acciones">
+                                <p:commandButton update="@form" action="${ApplicationBean.delete(aplication.id)}" value="Borrar" icon="fa fa-trash" iconPos="right"></p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

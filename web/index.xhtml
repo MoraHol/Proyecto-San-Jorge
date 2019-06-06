@@ -1,18 +1,75 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
+
+        <title>Ofertas de Empleos, Trabajos y Vacantes en la ciudad</title>
+        <meta name="description" content="Registra tu hoja de vida en Elempleo.com y aplica a las mejores ofertas de empleo en Colombia, Costa Rica y Perú. Encuentra el trabajo que siempre has querido "/>
+
+
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic,500italic|Kreon:400,700" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
+
+        <link href="http://elempleo.com/resources/companies/Content/dist/css/layout.min.css" rel="stylesheet"/>
+        <link href="http://elempleo.com/resources/companies/Content/dist/css/vendor/vendor.min.css" rel="stylesheet"/>
+        <link href="http://elempleo.com/resources/companies/Content/dist/css/indexMaster.css" rel="stylesheet"/>
+        <link href="http://elempleo.com/resources/companies/Content/dist/css/ui.css" rel="stylesheet"/>
+
+        <link rel="icon" href="/Proyecto-San-Jorge/resources/img/team.png" type="image/png"/> 
+        <script src="http://elempleo.com/resources/companies/Scripts/dist/js/layout.main.vendor.min.js"></script>
+        <script src="http://elempleo.com/resources/companies/Scripts/dist/js/omniture/omniture.index.min.js"></script>
+
     </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <img  src="data:image/png;base64,${loginBean.user.photoToString()}" />
+
+    <h:body class="international">
+
+        <div class="internacional">
+            <header>
+                <img class="logo" src="https://image.flaticon.com/icons/svg/1283/1283218.svg" alt="Logo El Empleo" height="200" width="200"/>
+                <h1 class="landing-title" style="color: #fff;"> Publica o aplica a las mejores oportunidades de <br class="visible-xs"/>empleo <br class="hidden-xs"/> en la ciudad. </h1>
+
+            </header>
+            <div class="acciones">
+                <div class="box empleo">
+                    <div class="radar">
+                    </div>
+                    <div class="radar">
+                    </div>
+                    <div class="radar">
+                    </div>
+                    <div class="radar">
+                    </div>
+                    <a class="user-type" data-user-type="Person" href="login.xhtml">
+                        <div class="thumb"><img src="http://elempleo.com/resources/companies/Content/images/icons/custom/landing-ico-personas.svg" /></div>
+                        <h2 class="titulo">Busco empleo</h2>
+                        <p class="desc">Miles de trabajos para ti</p>
+                    </a>
+                </div>
+                <div class="box candidatos">
+                    <div class="radar">
+                    </div>
+                    <div class="radar">
+                    </div>
+                    <div class="radar">
+                    </div>
+                    <div class="radar">
+                    </div>
+                    <a class="user-type" data-user-type="Company" href="loginCompany.xhtml">
+                        <div class="thumb"><img src="http://elempleo.com/resources/companies/Content/images/icons/custom/landing-ico-empresas.svg"/></div>
+                        <h2 class="titulo">Busco candidatos</h2>
+                        <p class="desc">Consigue el mejor talento</p>
+                    </a>
+                </div>
+                <div class="box-clear"></div>
+            </div>
+        </div>
+
+
+        <script src="http://elempleo.com/resources/companies/Scripts/dist/js/internationallanding/internationallanding.index.min.js"></script>
+
     </h:body>
 </html>
-
