@@ -15,7 +15,7 @@
                     <p:panel header="Empresas">
                         <p:dataView var="company" value="#{companyBean.companies}" rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                    gridIcon="fa fa-th-large" listIcon="fa fa-reorder">
+                                    gridIcon="fa fa-th-large" listIcon="fa fa-reorder" paginatorAlwaysVisible="false">
 
                             <p:dataViewListItem>
                                 <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">

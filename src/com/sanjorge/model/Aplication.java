@@ -6,9 +6,18 @@ import java.util.Date;
  * @author David Viuche
  */
 public class Aplication {
+    private int id;
     private Offer Offer;
     private User user;
     private Date created_at;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Offer getOffer() {
         return Offer;

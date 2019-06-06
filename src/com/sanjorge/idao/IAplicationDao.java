@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public interface IAplicationDao {
     public ArrayList<Aplication> findAll();
-    public Aplication findAplicationByUser(int idUser);
-    public int save(Aplication aplication);
+    public ArrayList<Aplication> findAplicationByUser(int idUser);
+    public int save(Aplication aplication) throws Exception;
     public int delete(int idUser);
     public int update(Aplication aplication);
-     public ArrayList<Aplication> getApplicationsByOffer(Offer offer);
+    public ArrayList<Aplication> findApplicationsByOffer(Offer offer);
 }

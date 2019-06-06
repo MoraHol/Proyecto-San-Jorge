@@ -7,6 +7,7 @@ package com.sanjorge.bean;
 
 import com.sanjorge.model.Offer;
 import com.sanjorge.service.OfferService;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -17,7 +18,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class OffersBean {
+public class OffersBean implements Serializable{
     private OfferService offerService;
     /**
      * Creates a new instance of OffersBean
@@ -28,4 +29,5 @@ public class OffersBean {
     public ArrayList<Offer> getAllOffers(){
         return offerService.list();
     }
+    
 }

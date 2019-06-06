@@ -1,5 +1,6 @@
 package com.sanjorge.dao;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import com.sanjorge.idao.IAplicationDao;
 import com.sanjorge.idao.IOfferDao;
 import com.sanjorge.idao.IUserDao;
@@ -34,6 +35,7 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
             while (rs.next()) {
                 int t = 1;
                 Aplication aplication = new Aplication();
+                aplication.setId(rs.getInt(t++));
                 aplication.setOffer(offerDao.findOfferById(rs.getInt(t++)));
                 aplication.setUser(userDao.findUserById(rs.getInt(t++)));
                 aplication.setCreated_at(rs.getDate(t++));
@@ -44,39 +46,45 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
     }
 
     @Override
-    public Aplication findAplicationByUser(int id) {
-        Aplication aplication = new Aplication();
+    public ArrayList<Aplication> findAplicationByUser(int id) {
+        ArrayList<Aplication> applications = new ArrayList<>();
         try {
             this.connect();
             String query = "SELECT * FROM `applications` WHERE `users_id_user` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
-            if (rs.next()) {
+            while(rs.next()) {
                 int t = 1;
-                aplication.setOffer(offerDao.findOfferById(rs.getInt(t++)));
-                aplication.setUser(userDao.findUserById(rs.getInt(t++)));
-                aplication.setCreated_at(rs.getDate(t++));
+                Aplication application = new Aplication();
+                application.setId(rs.getInt(t++));
+                application.setUser(userDao.findUserById(rs.getInt(t++)));
+                application.setOffer(offerDao.findOfferById(rs.getInt(t++)));
+                application.setCreated_at(rs.getDate(t++));
+                applications.add(application);
             }
         } catch (Exception e) {
         }
-        return aplication;
+        return applications;
     }
 
     @Override
-    public int save(Aplication aplication) {
+    public int save(Aplication aplication) throws Exception{
         int status = 0;
         try {
             this.connect();
             String query = "INSERT INTO `applications` (`users_id_user`, `job_offers_id_job_offer`) VALUES (?, ?)";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
-            pstm.setInt(1, aplication.getOffer().getId());
-            pstm.setInt(2, aplication.getUser().getId());
+            pstm.setInt(1, aplication.getUser().getId());
+            pstm.setInt(2, aplication.getOffer().getId());
+            
 
             status = pstm.executeUpdate();
             this.disconnect();
+        }catch(MySQLIntegrityConstraintViolationException ex){
+            throw new Exception("Ya aplicaste a esta oferta");
         } catch (Exception e) {
-            System.err.println("AplicationDao:" + e.getMessage());
+            System.err.println("AplicationDao: " + e.getMessage());
         }
         return status;
     }
@@ -86,7 +94,7 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
         int status = 0;
         try {
             this.connect();
-            String query = "DELETE FROM `applications` WHERE `applications`.`users_id_user` = ?";
+            String query = "DELETE FROM `applications` WHERE `applications`.`id_application` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, id);
             status = pstm.executeUpdate();
@@ -115,7 +123,7 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
     }
 
     @Override
-    public ArrayList<Aplication> getApplicationsByOffer(Offer offer) {
+    public ArrayList<Aplication> findApplicationsByOffer(Offer offer) {
         ArrayList<Aplication> applications = new ArrayList<>();
         try {
             this.connect();
@@ -126,13 +134,15 @@ public class AplicationDaoImpl extends ConnectionSQL implements IAplicationDao {
             while (rs.next()) {
                 int t = 1;
                 Aplication application = new Aplication();
-                application.setOffer(offerDao.findOfferById(rs.getInt(t++)));
+                application.setId(rs.getInt(t++));
                 application.setUser(userDao.findUserById(rs.getInt(t++)));
+                application.setOffer(offerDao.findOfferById(rs.getInt(t++)));
                 application.setCreated_at(rs.getDate(t++));
                 applications.add(application);
             }
             this.disconnect();
         } catch (Exception e) {
+            System.err.println("AplicationDao:" + e.getMessage());
         }
         return applications;
     }

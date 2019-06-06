@@ -40,7 +40,7 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
 
             this.disconnect();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println("OfferDao:" + ex.getMessage());
         }
         return status;
     }
@@ -113,13 +113,14 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
         ArrayList<Offer> offers = new ArrayList<>();
         try {
             this.connect();
-            String query = "SELECT id_ FROM `job_offers`";
+            String query = "SELECT id_job_offer FROM `job_offers`";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
                 offers.add(this.findOfferById(rs.getInt("id_job_offer")));
             }
         } catch (Exception e) {
+            System.err.println("OfferDao:" + e.getMessage());
         }
         return offers;
     }
@@ -158,6 +159,7 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
                 categoryOfTheOffer.setName(rs.getString(t++));
             }
         } catch (Exception e) {
+            System.err.println("OfferDao:" + e.getMessage());
         }
         return categoryOfTheOffer;
     }

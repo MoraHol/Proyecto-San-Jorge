@@ -5,8 +5,13 @@
  */
 package com.sanjorge.bean;
 
+import com.sanjorge.dao.AplicationDaoImpl;
+import com.sanjorge.idao.IAplicationDao;
+import com.sanjorge.model.Aplication;
 import com.sanjorge.model.Offer;
+import com.sanjorge.model.User;
 import com.sanjorge.service.OfferService;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -18,17 +23,18 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "offerBean")
 @ViewScoped
-public class OfferBean {
+public class OfferBean implements Serializable{
 
     private Integer idOffer;
     private Offer offer;
     private OfferService offerService;
-
+    private IAplicationDao applicationDao;
     /**
      * Creates a new instance of OfferBean
      */
     public OfferBean() {
         offerService = new OfferService();
+        applicationDao = new AplicationDaoImpl();
         offer = new Offer();
     }
 
@@ -79,6 +85,20 @@ public class OfferBean {
             }
         } catch (Exception e) {
 
+        }
+    }
+    public void apply(){
+        Aplication application = new Aplication();
+        try {
+            application.setOffer(offer);
+            application.setUser((User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user"));
+            if(applicationDao.save(application) > 0){
+                FacesContext.getCurrentInstance().addMessage("messagesApp", new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Has aplicado a la oferta"));
+            }else{
+                FacesContext.getCurrentInstance().addMessage("messagesApp", new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Ya aplicaste a esta oferta"));
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage("messagesApp", new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", e.getMessage()));
         }
     }
 }
