@@ -1,0 +1,34 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pp="http://primefaces.org/poseidon">
+
+    <h:form id="menuform"> 
+        <div class="layout-menu-container">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <pp:menu widgetVar="me">
+                        <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-fw fa-dashboard" outcome="/pages/user/dashboard"/>
+                        <p:menuitem id="om_offerslist" value="Ver Ofertas" icon="fa fa-fw fa-database" outcome="/pages/user/offers"></p:menuitem>
+                        <p:menuitem id="om_applicationslist" value="Mis Ofertas" icon="fa fa-fw fa-bars" outcome="/pages/user/applications"></p:menuitem>
+                        <p:menuitem id="om_insertar" value="Empresas" icon="fa fa-fw fa-gavel" outcome="/pages/user/company"></p:menuitem>
+                        <p:submenu id="om_customization" label="Modos de menu" icon="fa fa-fw fa-bars">
+                            <p:menuitem id="custom3" value="Menu estatico" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('static')}" ajax="false"/>
+                            <p:menuitem id="custom4" value="Menu sobrepuesto" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('overlay')}" ajax="false"/>
+                            <p:menuitem id="custom5" value="Menu Horizontal" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('horizontal')}" ajax="false"/>
+                        </p:submenu>
+                    </pp:menu>
+                    
+
+                    <div class="layout-menu-footer">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

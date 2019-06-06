@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/company/template.xhtml">
+    <ui:define name="title" >Empresas</ui:define>
+    <ui:define name="head">
+        <f:event type="preRenderView" listener="${loginCompanyBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="breadcrumb"> /  Vacantes  /  crear de ofertas</ui:define>
+    <ui:define name="content">
+        <div class='container'>
+            <div class="card">
+                <h:form id="create_offer">
+                    <p:panel header="Creación de oferta">
+                        <p:growl id="growl" showDetail="true" for="messagesApp"></p:growl>
+                        <div class="container">
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    Titulo: *
+                                </div>
+                                <div class="ui-g-10"><p:inputText value="${createOffersBean.title}" style="width: 98%" required="true" requiredMessage="Ingresa un titulo para la vacante"></p:inputText></div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    Descripcion: *
+                                </div>
+                                <div class="ui-g-10"><p:textEditor required="true" height="250" value="${createOffersBean.description}">
+                                        <f:facet name="toolbar">
+                                            <span class="ql-formats">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select class="ql-font"></select>
+                                                <select class="ql-size"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                            </span>
+                                        </f:facet>
+                                    </p:textEditor></div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    Requisitos: *
+                                </div>
+                                <div class="ui-g-10"><p:textEditor required="true" height="250" value="${createOffersBean.requerimients}">
+                                        <f:facet name="toolbar">
+                                            <span class="ql-formats">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select class="ql-font"></select>
+                                                <select class="ql-size"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                            </span>
+                                        </f:facet>
+                                    </p:textEditor></div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    Salario: *
+                                </div>
+                                <div class="ui-g-10"><p:inputNumber required="true" inputStyle="width: 310px;" value="${createOffersBean.salary}"></p:inputNumber></div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    categoría: *
+                                </div>
+                                <div class="ui-g-10"> 
+                                    <p:selectOneMenu value="${createOffersBean.selectedCategory}" autoWidth="false" style="width: 300px;" required="true" id="register-category" >
+
+                                        <f:selectItem itemLabel="Selecione una categoria"  itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems value="${createOffersBean.categories}" var="company"  itemLabel="${company.name}" itemValue="${company.id}"/>
+
+                                    </p:selectOneMenu>
+                                    <p:message for="register-category" display="text" styleClass="help-block"/>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    Jordana de empleo: *
+                                </div>
+                                <div class="ui-g-10"> 
+                                    <p:selectOneMenu value="${createOffersBean.working_day}"  required="true" id="register-working-day" autoWidth="false" style="width: 300px;" >
+
+                                        <f:selectItem itemLabel="Selecione una jordana de empleo"  itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Tiempo Completo" itemValue="tiempo completo"/>
+                                        <f:selectItem itemLabel="Tiempo Parcial" itemValue="tiempo parcial"/>
+                                        <f:selectItem itemLabel="Por horas" itemValue="por horas"/>
+                                        <f:selectItem itemLabel="Teletrabajo" itemValue="desde casa" />
+                                    </p:selectOneMenu>
+                                    <p:message for="register-working-day" display="text" styleClass="help-block"/>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-2">
+                                    Número de vacantes: *
+                                </div>
+                                <div class="ui-g-10">
+                                    <p:inputNumber value="${createOffersBean.numberVacants}" required="true" decimalPlaces="0" inputStyle="width: 310px;" ></p:inputNumber>
+                                </div>
+                            </div>
+                            <div class="ui-g">
+                                <div class="ui-g-5"></div>
+                                <div class="ui-g-5">
+                                    <p:commandButton value="Crear Oferta" action="${createOffersBean.create()}" id="save-offer"  update="growl" style="margin-right:20px;" icon="fa fa-save" />
+                                </div>
+                            </div>
+                        </div>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

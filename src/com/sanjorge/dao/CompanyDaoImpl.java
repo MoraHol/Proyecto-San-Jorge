@@ -1,17 +1,29 @@
 package com.sanjorge.dao;
 
+import com.sanjorge.idao.ICategoryDao;
 import com.sanjorge.idao.ICompanyDao;
+import com.sanjorge.model.Category;
 import com.sanjorge.model.Company;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  *
- * @author David Viuche
+ * @author David Viuche, Alexis Holguin github:MoraHol
  */
 public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
+    
+    private ICategoryDao categoryDao;
 
+    public CompanyDaoImpl() {
+        categoryDao = new CategoryDaoImpl();
+    }
+    
+    
+    
     @Override
     public ArrayList<Company> findAll() {
         ArrayList<Company> list = new ArrayList<>();
@@ -33,7 +45,8 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company.setPhoneNumber(rs.getString(t++));
                 company.setNit(rs.getString(t++));
                 company.setAddress(rs.getString(t++));
-                company.setIdentificationNumber(rs.getString(t++));
+                company.setLogo(rs.getBlob(t).getBytes(1, (int) rs.getBlob(t++).length()));
+                company.setCategory(categoryDao.findById(rs.getInt(t++)));
                 list.add(company);
             }
         } catch (Exception e) {
@@ -47,7 +60,7 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
         Company company = new Company();
         try {
             this.connect();
-            String query = "SELECT * FROM `company` WHERE `id_company` = ?";
+            String query = "SELECT * FROM `companies` WHERE `id_company` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
@@ -63,7 +76,8 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
                 company.setPhoneNumber(rs.getString(t++));
                 company.setNit(rs.getString(t++));
                 company.setAddress(rs.getString(t++));
-                company.setIdentificationNumber(rs.getString(t++));
+                company.setLogo(rs.getBlob(10).getBytes(1, (int) rs.getBlob(10).length()));
+                company.setCategory(categoryDao.findById(rs.getInt(11)));
             }
         } catch (Exception e) {
             System.out.println("CompanyDao: Error" + e.getMessage());
@@ -72,11 +86,11 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
     }
 
     @Override
-    public int save(Company company) {
+    public int save(Company company) throws Exception {
         int status = 0;
         try {
             this.connect();
-            String query = "INSERT INTO `companies` (`id_company`, `name`, `email`, `password`, `description`, `webpage`, `phone_number`, `nit`, `address`, `indentification_number`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO `companies` (`id_company`, `name`, `email`, `password`, `description`, `webpage`, `phone_number`, `nit`, `address`, `logo`,`category_category_id`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setString(1, company.getName());
             pstm.setString(2, company.getEmail());
@@ -86,11 +100,15 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
             pstm.setString(6, company.getPhoneNumber());
             pstm.setString(7, company.getNit());
             pstm.setString(8, company.getAddress());
-            pstm.setString(9, company.getIdentificationNumber());
+            pstm.setBlob(9, new SerialBlob(company.getLogo()));
+            pstm.setInt(10, company.getCategory().getId());
             status = pstm.executeUpdate();
             this.disconnect();
-        } catch (Exception e) {
-            System.err.println("CompanyDao:" + e.getMessage());
+        } catch (SQLException e) {
+           if(e.getErrorCode() == 1062){
+               throw new Exception("El email ya se encuentra registrado");
+           }
+            System.err.println("CompanyDao insert:" + e.getMessage());
         }
         return status;
     }
@@ -126,7 +144,8 @@ public class CompanyDaoImpl extends ConnectionSQL implements ICompanyDao {
             pstm.setString(6, company.getPhoneNumber());
             pstm.setString(7, company.getNit());
             pstm.setString(8, company.getAddress());
-            pstm.setString(9, company.getIdentificationNumber());
+            pstm.setBlob(9, new SerialBlob(company.getLogo()));
+            pstm.setInt(10, company.getCategory().getId());
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {

@@ -8,7 +8,7 @@ package com.sanjorge.model;
 import java.util.Date;
 /**
  *
- * @author Adrian Hoyos
+ * @author Adrian Hoyos, Alexis Holguin github:MoraHol
  */
 public class Offer {
     private int id;
@@ -16,6 +16,52 @@ public class Offer {
     private Category category;
     private Date createdAt;
     private String working_day;
+    private String title;
+    private String description;
+    private String requirements;
+    private int numberVacants;
+    private Long salary;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(String requirements) {
+        this.requirements = requirements;
+    }
+
+    public int getNumberVacants() {
+        return numberVacants;
+    }
+
+    public void setNumberVacants(int numberVacants) {
+        this.numberVacants = numberVacants;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
+    }
+    
 
     public int getId() {
         return id;

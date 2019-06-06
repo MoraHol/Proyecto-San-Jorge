@@ -19,32 +19,38 @@ import java.util.ArrayList;
  */
 public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
 
+    @Override
     public int createOffer(Offer offer) {
         int status = 0;
         try {
             this.connect();
-            String query = "INSERT INTO `job_offers` (`id_job_offer`, `category_category_id`, `companies_id_company`, `created_at`, `working_day`) VALUES (?, ?, CURRENT_TIMESTAMP, ?);";
+            String query = "INSERT INTO `job_offers` (`id_job_offer`, `category_category_id`, `companies_id_company`, `created_at`, `working_day`, `title`, `description`, `requirements`, `salary`, `vacancy_numbers`) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
 
             pstm.setInt(1, offer.getCategory().getId());
             pstm.setInt(2, offer.getCompany().getId());
             pstm.setString(3, offer.getWorking_day());
+            pstm.setString(4, offer.getTitle());
+            pstm.setString(5, offer.getDescription());
+            pstm.setString(6, offer.getRequirements());
+            pstm.setLong(7, offer.getSalary());
+            pstm.setInt(8, offer.getNumberVacants());
             status = pstm.executeUpdate();
             System.out.println(status);
 
             this.disconnect();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println("OfferDao:" + ex.getMessage());
         }
         return status;
     }
     
+    @Override
     public Offer findOfferById(int id){
         Offer offer = new Offer();
         try {
-            String query = "SELECT id_job_offer, companies_id_company, category_category_id, created_at, working_day, C.name\n" +
-                           "FROM job_offers JO\n" +
-                           "WHERE id_job_offer = ?";
+            this.connect();
+            String query = "SELECT * FROM job_offers WHERE id_job_offer = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
@@ -53,45 +59,72 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
             if(rs.next()){
                 int t = 1;
                 offer.setId(rs.getInt(t++));
-                offer.setCompany(companyOfTheOffer.findCompanyById(rs.getInt(t++)));
                 offer.setCategory(findCategoryById(rs.getInt(t++)));
+                offer.setCompany(companyOfTheOffer.findCompanyById(rs.getInt(t++)));
                 offer.setCreatedAt(rs.getDate(t++));
                 offer.setWorking_day(rs.getString(t++));
+                offer.setTitle(rs.getString(t++));
+                offer.setDescription(rs.getString(t++));
+                offer.setRequirements(rs.getString(t++));
+                offer.setSalary(rs.getLong(t++));
+                offer.setNumberVacants(t++);
             }
         } catch (Exception e) {
+            System.out.println("Error OfferDao:" + e.getMessage());
         }
         return offer;
     }
     
+    @Override
     public ArrayList<Offer> listOffersByCompany(Company company) {
         ArrayList<Offer> offers = new ArrayList<>();
         try {
-            String query = "SELECT * FROM `job_offers` WHERE `companies_id_company` = ?";
+            this.connect();
+            String query = "SELECT id_job_offer FROM `job_offers` WHERE `companies_id_company` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, company.getId());
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
-                 offers.add(this.findOfferById(rs.getInt("id_job_offer")));
+                 offers.add(this.findOfferById(rs.getInt(1)));
             }
         } catch (Exception e) {
+            System.out.println("OfferDao:" + e.getMessage());
         }
         return offers;
     }
 
+    @Override
     public int deleteOffer(int id){
         int status = 0;
         try {
             this.connect();
-            String query = "DELETE FROM `job_offers` WHERE `job_offers`.`id` = ?";
+            String query = "DELETE FROM `job_offers` WHERE `job_offers`.`id_job_offer` = ?";
             PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
             pstm.setInt(1, id);
             status = pstm.executeUpdate();
             this.disconnect();
         } catch (Exception e) {
+            System.err.println("OfferDao:" + e.getMessage());
         }
         return status;
     }
-    
+    @Override
+    public ArrayList<Offer> findAll(){
+        ArrayList<Offer> offers = new ArrayList<>();
+        try {
+            this.connect();
+            String query = "SELECT id_job_offer FROM `job_offers`";
+            PreparedStatement pstm = this.getJdbcConnection().prepareStatement(query);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                offers.add(this.findOfferById(rs.getInt("id_job_offer")));
+            }
+        } catch (Exception e) {
+            System.err.println("OfferDao:" + e.getMessage());
+        }
+        return offers;
+    }
+    @Override
     public int updateOffer(Offer offer){
         int status = 0;
         try {
@@ -126,6 +159,7 @@ public class OfferDaoImpl extends ConnectionSQL implements IOfferDao {
                 categoryOfTheOffer.setName(rs.getString(t++));
             }
         } catch (Exception e) {
+            System.err.println("OfferDao:" + e.getMessage());
         }
         return categoryOfTheOffer;
     }

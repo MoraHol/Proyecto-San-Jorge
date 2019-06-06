@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/user/template.xhtml">
+    <ui:define name="title" >Empresas</ui:define>
+    <ui:define name="head">
+        <f:event type="preRenderView" listener="${loginBean.verifySession()}" />
+    </ui:define>
+    <ui:define name="content">
+        <div class='container'>
+            <div class="card">
+                <h:form id="listUsers">
+                    <p:panel header="Empresas">
+                        <p:dataView var="company" value="#{companyBean.companies}" rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    gridIcon="fa fa-th-large" listIcon="fa fa-reorder" paginatorAlwaysVisible="false">
+
+                            <p:dataViewListItem>
+                                <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+                                    <!--<p:graphicImage name="" /> -->
+
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="12" >
+                                            <h:graphicImage url="data:image/png;base64,${company.photoToString()}" width="36" height="36"></h:graphicImage>
+                                            <h:outputText value="#{company.name}" style="font-weight: bold"/>
+                                            <p:link outcome="singleCompany.xhtml"> <f:param   id="idCompany" name="idCompany" value="#{company.id}"/>
+                                                <i class="fa fa-search"></i></p:link>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+
+                                </h:panelGrid>
+                            </p:dataViewListItem>
+                        </p:dataView>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

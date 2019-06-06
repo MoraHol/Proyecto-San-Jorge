@@ -19,4 +19,5 @@ public interface IOfferDao {
     public ArrayList<Offer> listOffersByCompany(Company company);
     public int deleteOffer(int id);
     public int updateOffer(Offer offer);
+    public ArrayList<Offer> findAll();
 }
